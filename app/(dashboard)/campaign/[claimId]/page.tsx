@@ -36,17 +36,17 @@ export default function CampaignStudioPage() {
     <div className="min-h-screen bg-paper text-ink flex flex-col">
       <NavBar currentPath={`/campaign/${claimId}`} />
 
-      <main className="flex-1 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full">
+      <main className="flex-1 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 w-full">
         {/* Header */}
         <div className="mb-8 border-b border-slate/30 pb-6 flex flex-col md:flex-row md:items-end justify-between gap-4">
           <div>
-            <div className="flex items-center gap-2 mb-1">
+            <div className="flex flex-wrap items-center gap-2 mb-1.5">
               <span className="text-xs font-plex-mono text-slate uppercase">
                 CAMPAIGN STUDIO · CLAIM #{claimId.toUpperCase()}
               </span>
               <Stamp state="verified" size="sm" />
             </div>
-            <h1 className="text-3xl font-fraunces font-bold text-ink">
+            <h1 className="text-2xl sm:text-3xl font-fraunces font-bold text-ink">
               Verified Social Asset Generator
             </h1>
             <p className="text-xs font-plex-mono text-slate mt-1">
@@ -54,10 +54,10 @@ export default function CampaignStudioPage() {
             </p>
           </div>
 
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-3 w-full sm:w-auto">
             <button
               onClick={() => alert("Asset exported to Cloudinary media library with verified QR overlay!")}
-              className="px-5 py-2 bg-moss text-paper text-xs font-plex-mono font-medium hover:bg-moss/90 transition-colors cursor-pointer"
+              className="px-5 py-2 bg-moss text-paper text-xs font-plex-mono font-medium hover:bg-moss/90 transition-colors cursor-pointer w-full sm:w-auto text-center"
             >
               Export Render to Cloudinary
             </button>
@@ -66,15 +66,15 @@ export default function CampaignStudioPage() {
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
           {/* RENDER CANVAS PREVIEW (lg:col-span-7) */}
-          <div className="lg:col-span-7 flex flex-col items-center">
-            <div className="text-xs font-plex-mono text-slate mb-3 w-full flex justify-between">
+          <div className="lg:col-span-7 flex flex-col items-center w-full">
+            <div className="text-xs font-plex-mono text-slate mb-3 w-full flex flex-col sm:flex-row sm:justify-between gap-1">
               <span>CANVAS PREVIEW ({format.toUpperCase()})</span>
-              <span>STATE HASH: {claimData.stateHash}</span>
+              <span className="truncate max-w-[240px] sm:max-w-none">STATE HASH: {claimData.stateHash}</span>
             </div>
 
             {/* Simulated Generated Card */}
             <div
-              className={`relative w-full ${aspectMap[format]} bg-ink text-paper overflow-hidden shadow-lg border-4 border-paper-light flex flex-col justify-between p-6`}
+              className={`relative w-full ${aspectMap[format]} bg-ink text-paper overflow-hidden shadow-lg border-2 sm:border-4 border-paper-light flex flex-col justify-between p-4 sm:p-6`}
             >
               {/* Background with Cloudinary generative styling */}
               <img
@@ -99,7 +99,7 @@ export default function CampaignStudioPage() {
 
               {/* Content overlay */}
               <div className="relative z-10 space-y-2 mt-auto">
-                <div className="text-2xl font-fraunces font-bold text-paper leading-tight">
+                <div className="text-xl sm:text-2xl font-fraunces font-bold text-paper leading-tight">
                   {claimData.stat}
                 </div>
                 <p className="text-xs font-plex-sans text-paper/90 leading-snug">
@@ -117,16 +117,16 @@ export default function CampaignStudioPage() {
                   <div className="pt-2 flex items-center justify-between text-[10px] font-plex-mono text-paper/80 border-t border-paper/20 mt-2">
                     <div className="flex items-center gap-2">
                       {/* Simulated QR Code box */}
-                      <div className="w-10 h-10 bg-white p-1 flex items-center justify-center">
+                      <div className="w-10 h-10 bg-white p-1 flex items-center justify-center shrink-0">
                         <div className="w-full h-full bg-black flex flex-wrap gap-0.5 p-0.5">
                           <div className="w-2 h-2 bg-white" />
                           <div className="w-1 h-2 bg-white" />
                           <div className="w-2 h-1 bg-white" />
                         </div>
                       </div>
-                      <div>
-                        <div className="font-bold">SCAN TO INDEPENDENTLY AUDIT</div>
-                        <div>Receipt: pramaan.org/verify/{claimData.stateHash.slice(0, 8)}</div>
+                      <div className="min-w-0">
+                        <div className="font-bold truncate">SCAN TO INDEPENDENTLY AUDIT</div>
+                        <div className="truncate">Receipt: pramaan.org/verify/{claimData.stateHash.slice(0, 8)}</div>
                       </div>
                     </div>
                   </div>
@@ -136,8 +136,8 @@ export default function CampaignStudioPage() {
           </div>
 
           {/* CONTROLS (lg:col-span-5) */}
-          <div className="lg:col-span-5 space-y-6">
-            <div className="p-5 bg-[#FDFCFA] border border-slate/30 text-ink space-y-5">
+          <div className="lg:col-span-5 space-y-6 w-full">
+            <div className="p-4 sm:p-5 bg-[#FDFCFA] border border-slate/30 text-ink space-y-5">
               <span className="text-xs font-plex-mono text-slate uppercase tracking-wider block">
                 FORMAT & PUBLISHING CONTROLS
               </span>

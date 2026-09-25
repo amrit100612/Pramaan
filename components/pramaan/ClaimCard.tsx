@@ -47,14 +47,14 @@ export function ClaimCard({
         </span>
       </div>
 
-      <div className="p-5 space-y-4">
+      <div className="p-3.5 sm:p-5 space-y-3 sm:space-y-4">
         {/* Title & Ink Stamp */}
-        <div className="flex items-start justify-between gap-3">
-          <div className="space-y-0.5 flex-1">
-            <h3 className="text-xl font-fraunces font-bold text-[#1F2A24] leading-snug">
+        <div className="flex items-start justify-between gap-2 sm:gap-3">
+          <div className="space-y-0.5 flex-1 min-w-0">
+            <h3 className="text-lg sm:text-xl font-fraunces font-bold text-[#1F2A24] leading-snug break-words">
               {title}
             </h3>
-            <p className="text-xs font-plex-mono text-[#6B7268]">
+            <p className="text-[11px] sm:text-xs font-plex-mono text-[#6B7268] truncate">
               Sundarbans Sector 4 · Tidal Mangrove Belt
             </p>
           </div>
@@ -64,34 +64,34 @@ export function ClaimCard({
         </div>
 
         {/* Claim Blockquote */}
-        <div className="bg-white/80 p-3 border-l-4 border-[#3F6B4F] shadow-2xs">
-          <p className="text-sm font-plex-sans text-[#1F2A24] italic leading-relaxed">
+        <div className="bg-white/80 p-2.5 sm:p-3 border-l-4 border-[#3F6B4F] shadow-2xs">
+          <p className="text-xs sm:text-sm font-plex-sans text-[#1F2A24] italic leading-relaxed break-words">
             &ldquo;{claimText}&rdquo;
           </p>
         </div>
 
         {/* Atomic Checks Breakdown (Jev Jury) */}
         <div className="space-y-2 pt-1">
-          <div className="flex items-center justify-between text-[11px] font-plex-mono text-[#6B7268] border-b border-[#1F2A24]/15 pb-1">
-            <span className="font-semibold uppercase">Jev Jury Evaluation Criteria</span>
-            <span>Prob.</span>
+          <div className="flex items-center justify-between text-[10px] sm:text-[11px] font-plex-mono text-[#6B7268] border-b border-[#1F2A24]/15 pb-1">
+            <span className="font-semibold uppercase truncate">Jev Jury Evaluation Criteria</span>
+            <span className="shrink-0 ml-2">Prob.</span>
           </div>
 
-          <div className="space-y-1.5 font-plex-mono text-xs">
+          <div className="space-y-1.5 font-plex-mono text-[11px] sm:text-xs">
             {answers.length > 0 ? (
               answers.map((ans, i) => (
-                <div key={i} className="flex items-center justify-between py-0.5">
-                  <span className="text-[#1F2A24]/80 flex items-center gap-1.5">
+                <div key={i} className="flex items-center justify-between py-0.5 gap-2">
+                  <span className="text-[#1F2A24]/80 flex items-center gap-1.5 min-w-0">
                     {ans.probability >= 0.5 && !ans.isContradiction ? (
-                      <span className="text-[#3F6B4F] font-bold">✓</span>
+                      <span className="text-[#3F6B4F] font-bold shrink-0">✓</span>
                     ) : ans.isContradiction && ans.probability >= 0.5 ? (
-                      <span className="text-[#9E3B34] font-bold">✗</span>
+                      <span className="text-[#9E3B34] font-bold shrink-0">✗</span>
                     ) : (
-                      <span className="text-[#C68A2E] font-bold">?</span>
+                      <span className="text-[#C68A2E] font-bold shrink-0">?</span>
                     )}
-                    <span>{ans.label}</span>
+                    <span className="break-words line-clamp-2">{ans.label}</span>
                   </span>
-                  <span className="font-semibold text-[#1F2A24]">
+                  <span className="font-semibold text-[#1F2A24] shrink-0 ml-2">
                     {(ans.probability).toFixed(2)}
                   </span>
                 </div>
@@ -100,24 +100,24 @@ export function ClaimCard({
               <>
                 <div className="flex items-center justify-between text-xs">
                   <span className="flex items-center gap-1.5 text-[#1F2A24]/80">
-                    <span className="text-[#3F6B4F] font-bold">✓</span>
+                    <span className="text-[#3F6B4F] font-bold shrink-0">✓</span>
                     <span>activity corroborated</span>
                   </span>
-                  <span className="text-[#3F6B4F] font-semibold">0.94</span>
+                  <span className="text-[#3F6B4F] font-semibold shrink-0">0.94</span>
                 </div>
                 <div className="flex items-center justify-between text-xs">
                   <span className="flex items-center gap-1.5 text-[#1F2A24]/80">
-                    <span className="text-[#3F6B4F] font-bold">✓</span>
+                    <span className="text-[#3F6B4F] font-bold shrink-0">✓</span>
                     <span>environment consistent</span>
                   </span>
-                  <span className="text-[#3F6B4F] font-semibold">0.91</span>
+                  <span className="text-[#3F6B4F] font-semibold shrink-0">0.91</span>
                 </div>
                 <div className="flex items-center justify-between text-xs">
                   <span className="flex items-center gap-1.5 text-[#1F2A24]/80">
-                    <span className="text-[#6B7268] font-bold">✗</span>
+                    <span className="text-[#6B7268] font-bold shrink-0">✗</span>
                     <span>scale contradicts claim</span>
                   </span>
-                  <span className="text-[#6B7268] font-semibold">0.06</span>
+                  <span className="text-[#6B7268] font-semibold shrink-0">0.06</span>
                 </div>
               </>
             )}
@@ -125,22 +125,22 @@ export function ClaimCard({
         </div>
 
         {/* Survival Score Metric */}
-        <div className="bg-[#EDE6D6]/70 p-2.5 border border-[#1F2A24]/15 flex items-center justify-between">
-          <div className="text-xs font-plex-sans text-[#1F2A24]/80">
+        <div className="bg-[#EDE6D6]/70 p-2 sm:p-2.5 border border-[#1F2A24]/15 flex items-center justify-between">
+          <div className="text-[11px] sm:text-xs font-plex-sans text-[#1F2A24]/80">
             Cited Evidence: <span className="font-plex-mono font-bold text-[#1F2A24]">{citedAssetCount} Asset{citedAssetCount > 1 ? "s" : ""}</span>
           </div>
-          <div className="flex items-center gap-1.5 text-xs font-plex-mono font-bold">
+          <div className="flex items-center gap-1.5 text-[11px] sm:text-xs font-plex-mono font-bold shrink-0">
             <span className="text-[#6B7268]">SURVIVAL:</span>
-            <span className="text-[#3F6B4F] text-sm">
+            <span className="text-[#3F6B4F] text-xs sm:text-sm">
               {Math.round(survivalScore * 100)}%
             </span>
           </div>
         </div>
 
         {/* Footer Hash & Verification Timestamp */}
-        <div className="pt-2 border-t border-dashed border-[#1F2A24]/30 flex items-center justify-between text-[10px] font-plex-mono text-[#6B7268]">
-          <span>HASH: {stateHash}</span>
-          <span>{timestamp}</span>
+        <div className="pt-2 border-t border-dashed border-[#1F2A24]/30 flex flex-wrap items-center justify-between gap-1 text-[9px] sm:text-[10px] font-plex-mono text-[#6B7268]">
+          <span className="truncate max-w-[180px] sm:max-w-none">HASH: {stateHash}</span>
+          <span className="shrink-0">{timestamp}</span>
         </div>
       </div>
     </div>

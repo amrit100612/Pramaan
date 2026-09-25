@@ -70,19 +70,19 @@ export default function PublicVerifyPage() {
     <div className="min-h-screen bg-paper text-ink flex flex-col">
       <NavBar currentPath={`/verify/${assetId}`} />
 
-      <main className="flex-1 max-w-4xl mx-auto px-4 sm:px-6 py-10 w-full">
+      <main className="flex-1 max-w-4xl mx-auto px-4 sm:px-6 py-6 sm:py-10 w-full">
         {/* Receipt Header Banner */}
-        <div className="border border-slate/40 bg-[#FDFCFA] p-6 mb-8 relative">
+        <div className="border border-slate/40 bg-[#FDFCFA] p-4 sm:p-6 mb-8 relative">
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-slate/30 pb-4 mb-4">
-            <div>
-              <span className="text-xs font-plex-mono text-slate uppercase tracking-wider block">
+            <div className="min-w-0">
+              <span className="text-[11px] sm:text-xs font-plex-mono text-slate uppercase tracking-wider block">
                 PUBLIC EVIDENCE RECEIPT · NO AUTH REQUIRED
               </span>
-              <h1 className="text-2xl sm:text-3xl font-fraunces font-bold text-ink mt-0.5">
+              <h1 className="text-2xl sm:text-3xl font-fraunces font-bold text-ink mt-0.5 break-words">
                 Asset Audit Dossier #{receipt.assetId}
               </h1>
             </div>
-            <div className="shrink-0">
+            <div className="shrink-0 self-start sm:self-center">
               <Stamp state={receipt.status} size="lg" animate={true} />
             </div>
           </div>
@@ -93,7 +93,7 @@ export default function PublicVerifyPage() {
         </div>
 
         {/* Media & Metadata Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 mb-10">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-6 sm:gap-8 mb-10">
           {/* Photo */}
           <div className="md:col-span-7 space-y-2">
             <div className="aspect-[4/3] bg-paper-light border border-slate/40 overflow-hidden relative">
@@ -102,13 +102,13 @@ export default function PublicVerifyPage() {
                 alt="Verified field asset"
                 className="w-full h-full object-cover"
               />
-              <div className="absolute bottom-2 left-2 px-2 py-0.5 bg-ink/80 text-paper font-plex-mono text-[11px]">
+              <div className="absolute bottom-2 left-2 px-2 py-0.5 bg-ink/80 text-paper font-plex-mono text-[10px] sm:text-[11px] truncate max-w-[90%]">
                 ORIGINAL DELIVERY: CLOUDINARY AUTHENTICATED
               </div>
             </div>
-            <div className="text-[11px] font-plex-mono text-slate flex justify-between">
-              <span>CLOUD ID: {receipt.publicId}</span>
-              <span>VERIFIED: {receipt.verifiedAt}</span>
+            <div className="text-[11px] font-plex-mono text-slate flex flex-col sm:flex-row sm:justify-between gap-1">
+              <span className="truncate">CLOUD ID: {receipt.publicId}</span>
+              <span className="shrink-0">VERIFIED: {receipt.verifiedAt}</span>
             </div>
           </div>
 
@@ -126,12 +126,12 @@ export default function PublicVerifyPage() {
 
               <div>
                 <span className="text-slate block text-[11px]">GPS COORDINATES:</span>
-                <span className="font-semibold text-ink">{receipt.coordinates}</span>
+                <span className="font-semibold text-ink break-words">{receipt.coordinates}</span>
               </div>
 
               <div>
                 <span className="text-slate block text-[11px]">PERCEPTUAL HASH (pHASH):</span>
-                <span className="font-semibold text-ink">{receipt.phash}</span>
+                <span className="font-semibold text-ink break-all">{receipt.phash}</span>
               </div>
 
               <div>
@@ -199,9 +199,9 @@ export default function PublicVerifyPage() {
             ))}
           </div>
 
-          <div className="pt-4 border-t border-slate/20 flex items-center justify-between text-xs font-plex-mono text-slate">
-            <span>STATE SIGNATURE: {receipt.stateHash}</span>
-            <Link href="/projects/proj-1" className="text-moss font-medium hover:underline">
+          <div className="pt-4 border-t border-slate/20 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs font-plex-mono text-slate">
+            <span className="break-all">STATE SIGNATURE: {receipt.stateHash}</span>
+            <Link href="/projects/proj-1" className="text-moss font-medium hover:underline shrink-0">
               ← Return to Project Dossier
             </Link>
           </div>

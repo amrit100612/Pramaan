@@ -324,7 +324,7 @@ export default function ProjectGalleryPage() {
         {/* Project Header / Ledger Title */}
         <div className="border-b border-slate/30 pb-6 mb-8 flex flex-col md:flex-row md:items-end justify-between gap-4">
           <div>
-            <div className="flex items-center gap-2 mb-1.5">
+            <div className="flex flex-wrap items-center gap-2 mb-1.5">
               <span className="text-xs font-plex-mono text-slate uppercase">
                 PROJECT DOSSIER: {projectId.toUpperCase()}
               </span>
@@ -332,16 +332,16 @@ export default function ProjectGalleryPage() {
                 SDG 13 · SDG 15
               </span>
             </div>
-            <h1 className="text-3xl font-fraunces font-bold text-ink">
+            <h1 className="text-2xl sm:text-3xl font-fraunces font-bold text-ink">
               Sundarbans Coastal Mangrove Belt
             </h1>
-            <p className="text-sm font-plex-sans text-slate mt-1 max-w-2xl">
+            <p className="text-xs sm:text-sm font-plex-sans text-slate mt-1 max-w-2xl">
               Tidal canal sapling counts, GPS geofenced perimeter (21.9497° N, 88.8998° E ± 500m), tamper-evident perceptual hashes.
             </p>
           </div>
 
           {/* Real Upload Action (Priority 2 #4) */}
-          <div className="flex items-center gap-3">
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 sm:gap-3 w-full md:w-auto">
             <input
               type="file"
               ref={fileInputRef}
@@ -352,14 +352,14 @@ export default function ProjectGalleryPage() {
             <button
               onClick={() => fileInputRef.current?.click()}
               disabled={isUploading}
-              className="px-4 py-2.5 bg-ink text-paper text-xs font-plex-mono font-medium hover:bg-ink/90 transition-colors flex items-center gap-2 cursor-pointer disabled:opacity-50 shadow-sm"
+              className="px-4 py-2.5 bg-ink text-paper text-xs font-plex-mono font-medium hover:bg-ink/90 transition-colors flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50 shadow-sm"
             >
               <span className="text-sm">+</span>
               <span>{isUploading ? "Uploading to Cloudinary..." : "Upload Real Field Photo"}</span>
             </button>
             <Link
               href="/copilot"
-              className="px-4 py-2.5 border border-slate/40 text-ink text-xs font-plex-mono hover:bg-paper-light transition-colors"
+              className="px-4 py-2.5 border border-slate/40 text-ink text-xs font-plex-mono text-center hover:bg-paper-light transition-colors"
             >
               Ask Copilot
             </Link>
@@ -368,16 +368,16 @@ export default function ProjectGalleryPage() {
 
         {uploadStatus && (
           <div className="mb-6 p-3 bg-paper-light border border-moss text-ink text-xs font-plex-mono flex items-center gap-2 shadow-2xs">
-            <span className="w-2 h-2 rounded-full bg-moss animate-pulse" />
-            <span>{uploadStatus}</span>
+            <span className="w-2 h-2 rounded-full bg-moss animate-pulse shrink-0" />
+            <span className="break-words">{uploadStatus}</span>
           </div>
         )}
 
         {/* View Tabs (Priority 3 #8) */}
-        <div className="flex items-center gap-6 border-b border-slate/30 mb-6">
+        <div className="flex items-center gap-4 sm:gap-6 border-b border-slate/30 mb-6 overflow-x-auto no-scrollbar">
           <button
             onClick={() => setActiveTab("gallery")}
-            className={`pb-3 text-xs font-plex-mono font-medium tracking-wide uppercase transition-colors border-b-2 -mb-px cursor-pointer ${
+            className={`pb-3 text-xs font-plex-mono font-medium tracking-wide uppercase transition-colors border-b-2 -mb-px cursor-pointer shrink-0 ${
               activeTab === "gallery"
                 ? "border-ink text-ink font-bold"
                 : "border-transparent text-slate hover:text-ink"
@@ -387,7 +387,7 @@ export default function ProjectGalleryPage() {
           </button>
           <button
             onClick={() => setActiveTab("claims")}
-            className={`pb-3 text-xs font-plex-mono font-medium tracking-wide uppercase transition-colors border-b-2 -mb-px cursor-pointer flex items-center gap-2 ${
+            className={`pb-3 text-xs font-plex-mono font-medium tracking-wide uppercase transition-colors border-b-2 -mb-px cursor-pointer shrink-0 flex items-center gap-2 ${
               activeTab === "claims"
                 ? "border-moss text-moss font-bold"
                 : "border-transparent text-slate hover:text-ink"
@@ -401,17 +401,17 @@ export default function ProjectGalleryPage() {
         {activeTab === "claims" ? (
           <div className="space-y-8">
             {/* Interactive Claim Input Section */}
-            <div className="p-6 bg-[#FAF7F0] border border-slate/30 text-ink shadow-sm space-y-4">
-              <div className="flex items-center justify-between border-b border-slate/20 pb-3">
+            <div className="p-4 sm:p-6 bg-[#FAF7F0] border border-slate/30 text-ink shadow-sm space-y-4">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate/20 pb-3">
                 <div>
-                  <h2 className="text-xl font-fraunces font-bold text-ink">
+                  <h2 className="text-lg sm:text-xl font-fraunces font-bold text-ink">
                     Interactive Claim Verification
                   </h2>
                   <p className="text-xs font-plex-sans text-slate mt-0.5">
                     Submit any impact statement. The system compiles atomic claims, cross-references project evidence, evaluates via Jev Jury, and commits immutable rows to the Decision Ledger.
                   </p>
                 </div>
-                <span className="text-[11px] font-plex-mono text-moss bg-moss/10 px-2 py-0.5 border border-moss/30 font-semibold">
+                <span className="text-[11px] font-plex-mono text-moss bg-moss/10 px-2 py-0.5 border border-moss/30 font-semibold self-start sm:self-auto shrink-0">
                   JEV JURY ACTIVE
                 </span>
               </div>
@@ -423,21 +423,21 @@ export default function ProjectGalleryPage() {
                   <button
                     type="button"
                     onClick={() => setClaimDraft("Plantation team planted 500 Rhizophora mangrove saplings along Sector 4 tidal bank.")}
-                    className="text-xs font-plex-mono px-2.5 py-1 bg-white border border-slate/30 text-ink hover:border-ink transition-colors cursor-pointer"
+                    className="text-xs font-plex-mono px-2.5 py-1 bg-white border border-slate/30 text-ink hover:border-ink transition-colors cursor-pointer text-left"
                   >
                     ✓ Corroborated: 500 Rhizophora saplings
                   </button>
                   <button
                     type="button"
                     onClick={() => setClaimDraft("Dense harvest-ready timber forest with 10,000 mature teak trees established in 3 days.")}
-                    className="text-xs font-plex-mono px-2.5 py-1 bg-white border border-slate/30 text-ink hover:border-oxide transition-colors cursor-pointer text-oxide"
+                    className="text-xs font-plex-mono px-2.5 py-1 bg-white border border-slate/30 text-ink hover:border-oxide transition-colors cursor-pointer text-oxide text-left"
                   >
                     ✗ Contradiction: 10,000 mature teak trees in 3 days
                   </button>
                   <button
                     type="button"
                     onClick={() => setClaimDraft("Field nursery beds prepared near tidal inlet awaiting monsoon seedling transfer.")}
-                    className="text-xs font-plex-mono px-2.5 py-1 bg-white border border-slate/30 text-ink hover:border-ochre transition-colors cursor-pointer text-ochre"
+                    className="text-xs font-plex-mono px-2.5 py-1 bg-white border border-slate/30 text-ink hover:border-ochre transition-colors cursor-pointer text-ochre text-left"
                   >
                     ? Partial Review: Nursery beds prepared
                   </button>
@@ -454,14 +454,14 @@ export default function ProjectGalleryPage() {
                   className="w-full p-3 bg-white border border-slate/30 font-plex-sans text-sm text-ink focus:outline-none focus:border-ink"
                 />
 
-                <div className="flex items-center justify-between">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                   <span className="text-xs font-plex-mono text-slate">
                     Evaluating against {Math.min(assets.length, 3)} project evidence assets
                   </span>
                   <button
                     type="submit"
                     disabled={isVerifying || !claimDraft.trim()}
-                    className="px-5 py-2.5 bg-moss text-paper text-xs font-plex-mono font-bold hover:bg-moss/90 transition-colors cursor-pointer disabled:opacity-50 shadow-sm flex items-center gap-2"
+                    className="px-5 py-2.5 bg-moss text-paper text-xs font-plex-mono font-bold hover:bg-moss/90 transition-colors cursor-pointer disabled:opacity-50 shadow-sm flex items-center justify-center gap-2 w-full sm:w-auto"
                   >
                     {isVerifying ? (
                       <>
@@ -480,27 +480,27 @@ export default function ProjectGalleryPage() {
             {verificationResult && (
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
                 {/* Live ClaimCard Voucher with Stamp (lg:col-span-5) */}
-                <div className="lg:col-span-5 flex justify-center">
+                <div className="lg:col-span-5 flex justify-center w-full">
                   <ClaimCard {...verificationResult.claimCard} />
                 </div>
 
                 {/* Live Decision Ledger Audit Entries (lg:col-span-7) */}
-                <div className="lg:col-span-7 space-y-4">
-                  <div className="p-5 bg-white border border-slate/30 shadow-2xs space-y-3">
-                    <div className="flex items-center justify-between border-b border-slate/20 pb-2">
+                <div className="lg:col-span-7 space-y-4 w-full">
+                  <div className="p-4 sm:p-5 bg-white border border-slate/30 shadow-2xs space-y-3">
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 border-b border-slate/20 pb-2">
                       <div className="flex items-center gap-2">
-                        <span className="w-2 h-2 rounded-full bg-moss" />
+                        <span className="w-2 h-2 rounded-full bg-moss shrink-0" />
                         <span className="text-xs font-plex-mono font-bold text-ink uppercase tracking-wide">
                           Decision Ledger Entries (Committed)
                         </span>
                       </div>
-                      <span className="text-[10px] font-plex-mono text-slate">
+                      <span className="text-[10px] font-plex-mono text-slate truncate">
                         State Hash: #{verificationResult.claimCard.stateHash.slice(0, 8)}
                       </span>
                     </div>
 
-                    <div className="overflow-x-auto">
-                      <table className="w-full text-left font-plex-mono text-xs">
+                    <div className="overflow-x-auto -mx-4 px-4 sm:mx-0 sm:px-0">
+                      <table className="w-full min-w-[460px] text-left font-plex-mono text-xs">
                         <thead>
                           <tr className="border-b border-slate/20 text-slate">
                             <th className="py-2 pr-4 font-semibold">Evaluation Criteria</th>
@@ -530,7 +530,7 @@ export default function ProjectGalleryPage() {
                       </table>
                     </div>
 
-                    <div className="pt-3 border-t border-slate/20 flex items-center justify-between text-[11px] font-plex-mono text-slate">
+                    <div className="pt-3 border-t border-slate/20 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-[11px] font-plex-mono text-slate">
                       <span>✓ Written to .data/ledger_entries.json & Supabase</span>
                       <Link
                         href={`/verify/${assets[0]?.id || "asset_demo_01"}`}
@@ -547,14 +547,14 @@ export default function ProjectGalleryPage() {
         ) : (
           <div>
             {/* Filter Toolbar */}
-            <div className="flex items-center justify-between border-b border-slate/20 pb-3 mb-6 font-plex-mono text-xs text-slate">
-              <div className="flex items-center gap-2">
-                <span>Filter by state:</span>
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate/20 pb-3 mb-6 font-plex-mono text-xs text-slate">
+              <div className="flex flex-wrap items-center gap-1.5 sm:gap-2">
+                <span className="mr-1">Filter by state:</span>
                 {(["all", "verified", "review", "contradicted"] as const).map((s) => (
                   <button
                     key={s}
                     onClick={() => setFilter(s)}
-                    className={`px-2 py-0.5 border text-xs uppercase cursor-pointer ${
+                    className={`px-2 py-0.5 border text-xs uppercase cursor-pointer transition-colors ${
                       filter === s
                         ? "bg-ink text-paper border-ink"
                         : "border-slate/30 text-slate hover:text-ink"
@@ -565,7 +565,7 @@ export default function ProjectGalleryPage() {
                 ))}
               </div>
 
-              <div>Total Assets: {filteredAssets.length} recorded</div>
+              <div className="text-[11px] sm:text-xs">Total Assets: {filteredAssets.length} recorded</div>
             </div>
 
             {/* CONTACT SHEET GALLERY (Design.md §Layout) */}

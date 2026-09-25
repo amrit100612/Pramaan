@@ -107,10 +107,10 @@ export default function CitedCopilotPage() {
     <div className="min-h-screen bg-paper text-ink flex flex-col">
       <NavBar currentPath="/copilot" />
 
-      <main className="flex-1 max-w-4xl mx-auto px-4 sm:px-6 py-8 w-full flex flex-col">
+      <main className="flex-1 max-w-4xl mx-auto px-4 sm:px-6 py-6 sm:py-8 w-full flex flex-col">
         {/* Header */}
         <div className="mb-6 border-b border-slate/30 pb-4">
-          <div className="flex items-center gap-2 mb-1">
+          <div className="flex flex-wrap items-center gap-2 mb-1">
             <span className="text-xs font-plex-mono text-slate uppercase tracking-wider">
               AI CITATION ENGINE
             </span>
@@ -118,7 +118,7 @@ export default function CitedCopilotPage() {
               VERIFIED CLAIMS ONLY
             </span>
           </div>
-          <h1 className="text-3xl font-fraunces font-bold text-ink">
+          <h1 className="text-2xl sm:text-3xl font-fraunces font-bold text-ink">
             Cited Field Copilot
           </h1>
           <p className="text-xs font-plex-mono text-slate mt-1">
@@ -127,20 +127,20 @@ export default function CitedCopilotPage() {
         </div>
 
         {/* Chat Stream */}
-        <div className="flex-1 bg-[#FDFCFA] border border-slate/30 p-6 space-y-6 overflow-y-auto mb-4 min-h-[400px]">
+        <div className="flex-1 bg-[#FDFCFA] border border-slate/30 p-3.5 sm:p-6 space-y-4 sm:space-y-6 overflow-y-auto mb-4 min-h-[350px] sm:min-h-[400px]">
           {messages.map((m) => (
             <div
               key={m.id}
               className={`flex flex-col ${
                 m.sender === "user" ? "items-end" : "items-start"
-              }`}
+              } w-full`}
             >
               <div className="text-[10px] font-plex-mono text-slate uppercase mb-1">
                 {m.sender === "user" ? "Program Officer" : "Cited Copilot"}
               </div>
 
               <div
-                className={`max-w-2xl p-4 text-sm font-plex-sans leading-relaxed ${
+                className={`max-w-[95%] sm:max-w-2xl p-3 sm:p-4 text-xs sm:text-sm font-plex-sans leading-relaxed break-words ${
                   m.sender === "user"
                     ? "bg-paper border border-slate/40 text-ink"
                     : m.noEvidenceFound
@@ -148,23 +148,23 @@ export default function CitedCopilotPage() {
                     : "bg-paper-light border-l-4 border-moss text-ink"
                 }`}
               >
-                <p>{m.text}</p>
+                <p className="break-words">{m.text}</p>
 
                 {/* Clickable Citations (Phase 6 requirement) */}
                 {m.citations && m.citations.length > 0 && (
                   <div className="mt-3 pt-3 border-t border-slate/20 space-y-1.5">
-                    <span className="text-[11px] font-plex-mono font-bold text-slate uppercase block">
+                    <span className="text-[10px] sm:text-[11px] font-plex-mono font-bold text-slate uppercase block">
                       Cited Evidence Receipts:
                     </span>
                     {m.citations.map((cite, i) => (
                       <Link
                         key={i}
                         href={cite.receiptUrl}
-                        className="inline-flex items-center gap-2 p-1.5 bg-paper border border-slate/30 text-xs font-plex-mono text-ink hover:border-moss transition-colors group"
+                        className="flex flex-wrap items-center gap-1.5 sm:gap-2 p-1.5 bg-paper border border-slate/30 text-xs font-plex-mono text-ink hover:border-moss transition-colors group"
                       >
                         <span className="text-moss">🔗</span>
-                        <span className="group-hover:underline">{cite.title}</span>
-                        <span className="text-[10px] px-1 bg-moss/10 text-moss border border-moss/30">
+                        <span className="group-hover:underline break-words">{cite.title}</span>
+                        <span className="text-[10px] px-1 bg-moss/10 text-moss border border-moss/30 shrink-0">
                           Trust: {(cite.trustScore * 100).toFixed(0)}%
                         </span>
                       </Link>
@@ -177,24 +177,24 @@ export default function CitedCopilotPage() {
 
           {isTyping && (
             <div className="flex items-center gap-2 text-xs font-plex-mono text-slate">
-              <span className="w-1.5 h-1.5 bg-moss rounded-full animate-bounce" />
+              <span className="w-1.5 h-1.5 bg-moss rounded-full animate-bounce shrink-0" />
               <span>Cross-examining ledger evidence...</span>
             </div>
           )}
         </div>
 
         {/* Input Bar */}
-        <form onSubmit={handleSend} className="flex gap-2">
+        <form onSubmit={handleSend} className="flex flex-col sm:flex-row gap-2">
           <input
             type="text"
             value={input}
             onChange={(e) => setInput(e.target.value)}
-            placeholder="Ask a question about project evidence (e.g. Was mangrove planting verified?)..."
-            className="flex-1 bg-paper-light border border-slate/40 px-4 py-2.5 font-plex-sans text-sm text-ink focus:outline-none focus:border-moss"
+            placeholder="Ask a question about project evidence..."
+            className="flex-1 min-w-0 bg-paper-light border border-slate/40 px-3.5 sm:px-4 py-2.5 font-plex-sans text-sm text-ink focus:outline-none focus:border-moss"
           />
           <button
             type="submit"
-            className="px-6 py-2.5 bg-ink text-paper font-plex-mono text-xs font-semibold uppercase hover:bg-ink/90 transition-colors cursor-pointer"
+            className="px-6 py-2.5 bg-ink text-paper font-plex-mono text-xs font-semibold uppercase hover:bg-ink/90 transition-colors cursor-pointer w-full sm:w-auto text-center"
           >
             Query
           </button>

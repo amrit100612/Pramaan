@@ -9,40 +9,40 @@ export default function MarketingPage() {
     <div className="min-h-screen bg-[#F6F2EA] text-[#1F2A24] flex flex-col font-plex-sans selection:bg-[#3F6B4F] selection:text-[#EDE6D6]">
       <NavBar isMarketing={true} currentPath="/" />
 
-      <main className="flex-1 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-20 w-full space-y-24">
+      <main className="flex-1 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 md:py-20 w-full space-y-14 sm:space-y-24">
         {/* HERO SECTION */}
-        <section className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-          <div className="lg:col-span-7 space-y-6">
-            <div className="inline-flex items-center gap-2 px-3 py-1 bg-white/80 border border-[#1F2A24]/15 rounded-xs text-xs font-plex-mono text-[#6B7268] uppercase tracking-wider shadow-2xs">
+        <section className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+          <div className="lg:col-span-7 space-y-5 sm:space-y-6">
+            <div className="inline-flex items-center gap-2 px-3 py-1 bg-white/80 border border-[#1F2A24]/15 rounded-xs text-[11px] sm:text-xs font-plex-mono text-[#6B7268] uppercase tracking-wider shadow-2xs">
               <span className="w-2 h-2 rounded-full bg-[#3F6B4F] animate-pulse" />
               <span>Verifiable Proof of Impact Platform</span>
             </div>
 
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-fraunces font-bold text-[#1F2A24] tracking-tight leading-[1.12]">
+            <h1 className="text-3xl sm:text-5xl lg:text-6xl font-fraunces font-bold text-[#1F2A24] tracking-tight leading-[1.15] sm:leading-[1.12]">
               Turns raw field media into cited proof of impact.
             </h1>
 
-            <p className="text-lg sm:text-xl font-plex-sans text-[#1F2A24]/80 leading-relaxed max-w-xl">
+            <p className="text-base sm:text-xl font-plex-sans text-[#1F2A24]/80 leading-relaxed max-w-xl">
               Pramaan automatically ingests, verifies, and audits photos and videos from NGO and sustainability projects. Every impact claim is cross-examined against perceptual evidence before publication.
             </p>
 
-            <div className="flex flex-wrap items-center gap-4 pt-2">
+            <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4 pt-2 w-full sm:w-auto">
               <Link
                 href="/projects/proj-1"
-                className="px-6 py-3.5 bg-[#1F2A24] text-[#EDE6D6] font-plex-sans font-semibold text-sm rounded-xs hover:bg-[#1F2A24]/90 transition-all shadow-sm hover:shadow"
+                className="px-6 py-3.5 bg-[#1F2A24] text-[#EDE6D6] font-plex-sans font-semibold text-sm rounded-xs hover:bg-[#1F2A24]/90 transition-all shadow-sm hover:shadow text-center"
               >
                 Launch Field Ledger →
               </Link>
               <Link
                 href="/verify/asset_demo_01"
-                className="px-6 py-3.5 bg-white border border-[#1F2A24]/20 text-[#1F2A24] font-plex-sans font-semibold text-sm rounded-xs hover:bg-black/5 transition-all flex items-center gap-2 shadow-2xs"
+                className="px-6 py-3.5 bg-white border border-[#1F2A24]/20 text-[#1F2A24] font-plex-sans font-semibold text-sm rounded-xs hover:bg-black/5 transition-all flex items-center justify-center gap-2 shadow-2xs text-center"
               >
                 <span>Audit Sample Receipt</span>
                 <span className="text-xs">↗</span>
               </Link>
             </div>
 
-            <div className="flex items-center gap-3 pt-3 text-xs font-plex-mono text-[#6B7268]">
+            <div className="flex flex-wrap items-center gap-2 sm:gap-3 pt-2 text-[11px] sm:text-xs font-plex-mono text-[#6B7268]">
               <span className="font-semibold text-[#1F2A24]">Demo Dataset:</span>
               <span>Sundarbans Tidal Mangrove Belt (4,500 Saplings)</span>
             </div>
@@ -68,15 +68,15 @@ export default function MarketingPage() {
         </section>
 
         {/* PROBLEM BANNER */}
-        <section className="bg-white/60 border border-[#1F2A24]/15 p-8 rounded-xs shadow-2xs">
+        <section className="bg-white/60 border border-[#1F2A24]/15 p-5 sm:p-8 rounded-xs shadow-2xs">
           <div className="max-w-3xl space-y-3">
             <span className="text-xs font-plex-mono text-[#3F6B4F] font-bold uppercase tracking-wider block">
               The Accountability Dilemma
             </span>
-            <h2 className="text-2xl sm:text-3xl font-fraunces font-bold text-[#1F2A24] leading-snug">
+            <h2 className="text-xl sm:text-3xl font-fraunces font-bold text-[#1F2A24] leading-snug">
               Donors and auditors can no longer afford to simply &ldquo;trust the caption.&rdquo;
             </h2>
-            <p className="text-base font-plex-sans text-[#1F2A24]/80 leading-relaxed">
+            <p className="text-sm sm:text-base font-plex-sans text-[#1F2A24]/80 leading-relaxed">
               Field teams capture thousands of unorganized photos. Without automated perceptual verification, claims of trees planted or communities assisted remain vulnerable to accidental reuse, misrepresentation, or greenwashing accusations.
             </p>
           </div>
@@ -168,19 +168,19 @@ export default function MarketingPage() {
         </section>
 
         {/* QUICK NAVIGATION / CONSOLE DISCOVERY */}
-        <section className="bg-[#1F2A24] text-[#EDE6D6] p-8 sm:p-10 rounded-xs shadow-md">
-          <div className="max-w-3xl space-y-5">
+        <section className="bg-[#1F2A24] text-[#EDE6D6] p-5 sm:p-10 rounded-xs shadow-md">
+          <div className="max-w-3xl space-y-4 sm:space-y-5">
             <span className="text-xs font-plex-mono text-[#3F6B4F] uppercase tracking-widest block font-bold">
               Interactive Tools
             </span>
-            <h2 className="text-3xl sm:text-4xl font-fraunces font-bold leading-tight">
+            <h2 className="text-2xl sm:text-4xl font-fraunces font-bold leading-tight">
               Explore the live verification console.
             </h2>
-            <p className="text-sm font-plex-sans text-[#EDE6D6]/80 leading-relaxed">
+            <p className="text-xs sm:text-sm font-plex-sans text-[#EDE6D6]/80 leading-relaxed">
               Browse the field contact sheet, search evidence using natural language, inspect vegetative change using the ExG slider, or query the Cited Copilot.
             </p>
 
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-2">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-3 pt-2">
               <Link
                 href="/projects/proj-1"
                 className="p-3 bg-white/10 hover:bg-white/20 border border-white/15 text-center text-xs font-plex-mono rounded-xs transition-colors"
@@ -211,8 +211,8 @@ export default function MarketingPage() {
       </main>
 
       {/* FOOTER */}
-      <footer className="border-t border-[#1F2A24]/15 bg-[#EDE6D6] py-8 text-xs font-plex-mono text-[#6B7268]">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <footer className="border-t border-[#1F2A24]/15 bg-[#EDE6D6] py-6 sm:py-8 text-xs font-plex-mono text-[#6B7268]">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left">
           <div>
             Pramaan · Verifiable Proof of Impact Platform
           </div>

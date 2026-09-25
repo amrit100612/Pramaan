@@ -87,24 +87,24 @@ export default function BeforeAfterStudioPage() {
         {/* Header */}
         <div className="mb-8 border-b border-slate/30 pb-6 flex flex-col md:flex-row md:items-end justify-between gap-4">
           <div>
-            <div className="flex items-center gap-2 mb-1.5">
+            <div className="flex flex-wrap items-center gap-2 mb-1.5">
               <span className="text-xs font-plex-mono text-slate uppercase">
                 BEFORE/AFTER STUDIO · PAIR #{pairId.toUpperCase()}
               </span>
               <Stamp state={exgDelta >= 0.1 ? "verified" : "review"} size="sm" />
             </div>
-            <h1 className="text-3xl font-fraunces font-bold text-ink">
+            <h1 className="text-2xl sm:text-3xl font-fraunces font-bold text-ink">
               {pair?.title || "Sundarbans Sector 4 — Tidal Bank A-04 Regeneration"}
             </h1>
-            <p className="text-xs font-plex-mono text-slate mt-1">
+            <p className="text-xs font-plex-mono text-slate mt-1 break-words">
               {loading ? "Analyzing imagery with Sharp..." : `GPS Distance Offset: ${distance} · Time Interval: ${days}`}
             </p>
           </div>
 
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-3 w-full sm:w-auto">
             <Link
               href="/campaign/claim-1"
-              className="px-4 py-2 bg-moss text-paper text-xs font-plex-mono font-medium hover:bg-moss/90 transition-colors"
+              className="w-full sm:w-auto text-center px-4 py-2 bg-moss text-paper text-xs font-plex-mono font-medium hover:bg-moss/90 transition-colors"
             >
               Export to Campaign Studio →
             </Link>
@@ -114,7 +114,7 @@ export default function BeforeAfterStudioPage() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
           {/* SLIDER COMPARISON VIEW (lg:col-span-8) */}
           <div className="lg:col-span-8 space-y-4">
-            <div className="relative aspect-[16/10] bg-black overflow-hidden select-none border border-slate/40">
+            <div className="relative aspect-[4/3] sm:aspect-[16/10] bg-black overflow-hidden select-none border border-slate/40">
               {/* After Image (Background) */}
               <img
                 src={afterImg}
@@ -157,20 +157,20 @@ export default function BeforeAfterStudioPage() {
                 max="100"
                 value={sliderPos}
                 onChange={(e) => setSliderPos(Number(e.target.value))}
-                className="absolute inset-0 w-full h-full opacity-0 cursor-ew-resize z-30"
+                className="absolute inset-0 w-full h-full opacity-0 cursor-ew-resize z-30 touch-none"
                 aria-label="Before/After split slider"
               />
             </div>
 
-            <div className="flex items-center justify-between text-xs font-plex-mono text-slate">
+            <div className="flex flex-wrap items-center justify-between gap-1 text-xs font-plex-mono text-slate">
               <span>← Drag slider or hover across image to compare</span>
-              <span>Split: {sliderPos}%</span>
+              <span className="font-semibold text-ink">Split: {sliderPos}%</span>
             </div>
           </div>
 
           {/* CHANGE METRICS & EXG BREAKDOWN (lg:col-span-4) */}
           <div className="lg:col-span-4 space-y-4">
-            <div className="p-5 bg-[#FDFCFA] border border-slate/30 text-ink space-y-4">
+            <div className="p-4 sm:p-5 bg-[#FDFCFA] border border-slate/30 text-ink space-y-4">
               <div className="flex items-center justify-between">
                 <span className="text-xs font-plex-mono text-slate uppercase tracking-wider block">
                   QUANTIFIED CHANGE SCORE (V1)
@@ -182,8 +182,8 @@ export default function BeforeAfterStudioPage() {
                 )}
               </div>
 
-              <div className="flex items-baseline gap-2">
-                <span className={`text-4xl font-fraunces font-bold ${exgDelta >= 0 ? "text-moss" : "text-oxide"}`}>
+              <div className="flex flex-wrap items-baseline gap-2">
+                <span className={`text-3xl sm:text-4xl font-fraunces font-bold ${exgDelta >= 0 ? "text-moss" : "text-oxide"}`}>
                   {exgDelta >= 0 ? `+${(exgDelta * 100).toFixed(1)}%` : `${(exgDelta * 100).toFixed(1)}%`}
                 </span>
                 <span className="text-xs font-plex-mono text-slate">vegetation index delta</span>
