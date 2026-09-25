@@ -1,0 +1,79 @@
+@import "tailwindcss";
+
+@theme {
+  --color-ink: #1F2A24;
+  --color-paper: #EDE6D6;
+  --color-paper-light: #F6F2EA;
+  --color-moss: #3F6B4F;
+  --color-ochre: #C68A2E;
+  --color-oxide: #9E3B34;
+  --color-slate: #6B7268;
+
+  --font-fraunces: 'Fraunces', Georgia, serif;
+  --font-plex-sans: 'IBM Plex Sans', system-ui, -apple-system, sans-serif;
+  --font-plex-mono: 'IBM Plex Mono', ui-monospace, monospace;
+}
+
+:root {
+  --color-ink: #1F2A24;
+  --color-paper: #EDE6D6;
+  --color-paper-light: #F6F2EA;
+  --color-moss: #3F6B4F;
+  --color-ochre: #C68A2E;
+  --color-oxide: #9E3B34;
+  --color-slate: #6B7268;
+
+  --background: #EDE6D6;
+  --foreground: #1F2A24;
+  --primary: #3F6B4F;
+  --primary-foreground: #EDE6D6;
+  --muted: #6B7268;
+  --muted-foreground: #6B7268;
+  --border: #6B7268;
+  --ring: #3F6B4F;
+  --radius: 0.25rem;
+}
+
+body {
+  background-color: #EDE6D6;
+  color: #1F2A24;
+  font-family: 'IBM Plex Sans', system-ui, -apple-system, sans-serif;
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Fraunces', Georgia, serif;
+  font-weight: 600;
+  color: #1F2A24;
+}
+
+code, pre, .mono {
+  font-family: 'IBM Plex Mono', monospace;
+}
+
+/* Stamp Animation */
+@keyframes stamp-in {
+  0% {
+    opacity: 0;
+    transform: rotate(-10deg) scale(1.35);
+  }
+  60% {
+    transform: rotate(-5deg) scale(0.96);
+  }
+  100% {
+    opacity: 1;
+    transform: rotate(-5deg) scale(1);
+  }
+}
+
+.stamp-animate {
+  animation: stamp-in 220ms ease-out forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .stamp-animate {
+    animation: none;
+  }
+}
