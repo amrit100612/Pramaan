@@ -18,7 +18,7 @@ export default function PrivacyPage() {
 
         <div className="space-y-6 text-sm font-plex-sans text-ink/80 leading-relaxed">
           <p>
-            This prototype privacy notice outlines the technical handling of media and metadata within Pramaan during the Geek Room × Cloudinary hackathon development window.
+            This privacy notice outlines the technical handling of media and metadata within the Pramaan verification platform.
           </p>
 
           <h2 className="text-lg font-fraunces font-semibold text-ink pt-2">1. Information Processed</h2>

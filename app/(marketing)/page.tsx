@@ -15,7 +15,7 @@ export default function MarketingPage() {
           <div className="lg:col-span-7 space-y-6">
             <div className="inline-flex items-center gap-2 px-3 py-1 bg-white/80 border border-[#1F2A24]/15 rounded-xs text-xs font-plex-mono text-[#6B7268] uppercase tracking-wider shadow-2xs">
               <span className="w-2 h-2 rounded-full bg-[#3F6B4F] animate-pulse" />
-              <span>Geek Room × Cloudinary · Problem Statement 02</span>
+              <span>Verifiable Proof of Impact Platform</span>
             </div>
 
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-fraunces font-bold text-[#1F2A24] tracking-tight leading-[1.12]">
@@ -214,7 +214,7 @@ export default function MarketingPage() {
       <footer className="border-t border-[#1F2A24]/15 bg-[#EDE6D6] py-8 text-xs font-plex-mono text-[#6B7268]">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
           <div>
-            Pramaan · Geek Room × Cloudinary Hackathon · Problem Statement 02
+            Pramaan · Verifiable Proof of Impact Platform
           </div>
           <div className="flex items-center gap-4">
             <Link href="/terms" className="hover:text-[#1F2A24] transition-colors">

@@ -4,9 +4,7 @@
 [![Cloudinary](https://img.shields.io/badge/Media%20Engine-Cloudinary-3448C5?style=for-the-badge&logo=cloudinary)](https://cloudinary.com)
 [![Next.js](https://img.shields.io/badge/Next.js%2016-Turbopack-000000?style=for-the-badge&logo=next.js)](https://nextjs.org)
 [![TypeScript](https://img.shields.io/badge/TypeScript-Strict-3178C6?style=for-the-badge&logo=typescript)](https://www.typescriptlang.org)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)
 
-> **Geek Room × Cloudinary Hackathon · Problem Statement 02**  
 > An evidence-grade proof of impact platform that converts raw field photos and videos into searchable, quantified, and cryptographically cited proof of environmental and social action.
 
 🌐 **Live Production URL**: [https://pramaan-fawn.vercel.app](https://pramaan-fawn.vercel.app)  
@@ -135,9 +133,3 @@ This repository is optimized for one-click deployment on [Vercel](https://vercel
    ✓ Compiled successfully in 454ms
    ✓ Generating static pages using 9 workers (17/17)
    ```
-
----
-
-## 📄 License
-
-MIT License · Built with care for **Geek Room × Cloudinary Hackathon Problem Statement 02**.

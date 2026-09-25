@@ -18,7 +18,7 @@ export default function TermsPage() {
 
         <div className="space-y-6 text-sm font-plex-sans text-ink/80 leading-relaxed">
           <p>
-            Pramaan is currently an experimental hackathon prototype prepared for the Geek Room × Cloudinary event (Problem Statement 02: AI-Powered Impact & Sustainability Media Platform). It is not a commercial product or legal service.
+            Pramaan is an AI-powered evidence platform that converts raw field photos and videos into searchable, quantified, and verifiable proof of environmental and social action.
           </p>
 
           <h2 className="text-lg font-fraunces font-semibold text-ink pt-2">1. Scope and Use</h2>
