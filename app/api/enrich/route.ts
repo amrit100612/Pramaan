@@ -1,19 +1,20 @@
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
-import { evaluateAssetTrust } from "@/lib/trust";
-import { generateTextEmbedding } from "@/lib/embeddings";
+import { enrichAndPersistAsset } from "@/lib/enrichment";
 
 const EnrichSchema = z.object({
   assetId: z.string().optional(),
-  publicId: z.string().min(1),
-  projectId: z.string().min(1),
-  secureUrl: z.string().url(),
+  publicId: z.string().min(1, "publicId is required"),
+  projectId: z.string().optional().default("proj-1"),
+  secureUrl: z.string().url("Valid secureUrl is required"),
   caption: z.string().optional(),
   tags: z.array(z.string()).optional(),
   latitude: z.number().optional(),
   longitude: z.number().optional(),
   capturedAt: z.string().optional(),
   phash: z.string().optional(),
+  bytes: z.number().optional(),
+  format: z.string().optional(),
 });
 
 export async function POST(req: NextRequest) {
@@ -30,38 +31,30 @@ export async function POST(req: NextRequest) {
 
     const data = result.data;
 
-    // 1. Run deterministic trust layer evaluation
-    const trustResult = evaluateAssetTrust({
-      id: data.publicId,
+    // Run core enrichment and database persistence
+    const enriched = await enrichAndPersistAsset({
+      publicId: data.publicId,
+      secureUrl: data.secureUrl,
+      projectId: data.projectId,
+      caption: data.caption,
+      tags: data.tags,
+      latitude: data.latitude,
+      longitude: data.longitude,
       capturedAt: data.capturedAt,
-      location:
-        data.latitude && data.longitude
-          ? { latitude: data.latitude, longitude: data.longitude }
-          : null,
       phash: data.phash,
+      bytes: data.bytes,
+      format: data.format,
     });
-
-    // 2. Generate embedding vector for caption + tags
-    const semanticText = [
-      data.caption || "",
-      ...(data.tags || []),
-    ].join(" ");
-
-    const embedding = await generateTextEmbedding(semanticText || data.publicId);
 
     return NextResponse.json({
       ok: true,
-      data: {
-        publicId: data.publicId,
-        trustResult,
-        embeddingLength: embedding.length,
-        status: "enriched",
-      },
+      data: enriched,
     });
-  } catch (error: any) {
-    console.error("Enrichment error:", error);
+  } catch (error: unknown) {
+    const message = error instanceof Error ? error.message : "Enrichment failed";
+    console.error("Enrichment error:", message);
     return NextResponse.json(
-      { ok: false, error: error.message || "Enrichment failed" },
+      { ok: false, error: message },
       { status: 500 }
     );
   }

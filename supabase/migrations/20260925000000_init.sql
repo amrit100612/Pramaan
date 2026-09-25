@@ -4,7 +4,7 @@ create extension if not exists "vector";
 
 -- 1. PROJECT
 create table if not exists public.projects (
-  id uuid primary key default gen_random_uuid(),
+  id text primary key,
   name text not null,
   description text,
   sdg_tags text[] default '{}',
@@ -13,17 +13,27 @@ create table if not exists public.projects (
   updated_at timestamptz default now() not null
 );
 
+-- Seed default demo project
+insert into public.projects (id, name, description, sdg_tags, geofence)
+values (
+  'proj-1',
+  'Sundarbans Coastal Mangrove Belt',
+  'Tidal canal sapling counts and ecosystem restoration monitoring.',
+  array['SDG 13: Climate Action', 'SDG 15: Life on Land'],
+  '{"center": {"latitude": 21.9497, "longitude": 88.8998}, "radiusMeters": 500}'::jsonb
+) on conflict (id) do update set name = excluded.name;
+
 -- 2. ASSET
 create table if not exists public.assets (
   id uuid primary key default gen_random_uuid(),
-  project_id uuid references public.projects(id) on delete cascade not null,
+  project_id text references public.projects(id) on delete cascade default 'proj-1' not null,
   cloudinary_public_id text not null unique,
   secure_url text not null,
   asset_type text default 'image' not null, -- 'image' | 'video'
   exif jsonb default '{}'::jsonb,
   latitude double precision,
   longitude double precision,
-  captured_at timestamptz,
+  captured_at timestamptz default now(),
   phash text,
   quality_score double precision default 1.0,
   caption text,
@@ -40,7 +50,7 @@ create index if not exists idx_assets_captured_at on public.assets(captured_at);
 -- 3. ASSET_PAIR (Before/After)
 create table if not exists public.asset_pairs (
   id uuid primary key default gen_random_uuid(),
-  project_id uuid references public.projects(id) on delete cascade not null,
+  project_id text references public.projects(id) on delete cascade default 'proj-1' not null,
   before_asset_id uuid references public.assets(id) on delete cascade not null,
   after_asset_id uuid references public.assets(id) on delete cascade not null,
   similarity double precision,
@@ -66,7 +76,7 @@ create table if not exists public.trust_records (
 -- 5. CLAIM
 create table if not exists public.claims (
   id uuid primary key default gen_random_uuid(),
-  project_id uuid references public.projects(id) on delete cascade,
+  project_id text references public.projects(id) on delete cascade default 'proj-1',
   text text not null,
   category text, -- 'activity' | 'environment' | 'scale' | 'timeline'
   cited_asset_ids uuid[] default '{}' not null,
@@ -101,7 +111,7 @@ create index if not exists idx_ledger_entries_state_hash on public.ledger_entrie
 -- 8. REPORT
 create table if not exists public.reports (
   id uuid primary key default gen_random_uuid(),
-  project_id uuid references public.projects(id) on delete cascade not null,
+  project_id text references public.projects(id) on delete cascade default 'proj-1' not null,
   title text not null,
   claim_ids uuid[] default '{}' not null,
   pdf_url text,
@@ -109,7 +119,7 @@ create table if not exists public.reports (
   created_at timestamptz default now() not null
 );
 
--- Enable Row Level Security (RLS)
+-- Row Level Security (RLS)
 alter table public.projects enable row level security;
 alter table public.assets enable row level security;
 alter table public.asset_pairs enable row level security;
@@ -119,7 +129,7 @@ alter table public.verdicts enable row level security;
 alter table public.ledger_entries enable row level security;
 alter table public.reports enable row level security;
 
--- Public read policies for verify page & reports
+-- Public read policies
 create policy "Allow public read access to assets" on public.assets for select using (true);
 create policy "Allow public read access to trust_records" on public.trust_records for select using (true);
 create policy "Allow public read access to verdicts" on public.verdicts for select using (true);
@@ -129,6 +139,12 @@ create policy "Allow public read access to projects" on public.projects for sele
 create policy "Allow public read access to asset_pairs" on public.asset_pairs for select using (true);
 create policy "Allow public read access to reports" on public.reports for select using (true);
 
--- Authenticated / Service role write policies
-create policy "Allow insert on assets" on public.assets for insert with check (true);
-create policy "Allow update on assets" on public.assets for update using (true);
+-- Insert/Update policies for service role
+create policy "Allow all on assets" on public.assets for all using (true) with check (true);
+create policy "Allow all on projects" on public.projects for all using (true) with check (true);
+create policy "Allow all on trust_records" on public.trust_records for all using (true) with check (true);
+create policy "Allow all on claims" on public.claims for all using (true) with check (true);
+create policy "Allow all on verdicts" on public.verdicts for all using (true) with check (true);
+create policy "Allow all on ledger_entries" on public.ledger_entries for all using (true) with check (true);
+create policy "Allow all on reports" on public.reports for all using (true) with check (true);
+create policy "Allow all on asset_pairs" on public.asset_pairs for all using (true) with check (true);

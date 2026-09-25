@@ -60,10 +60,11 @@ export async function POST(req: NextRequest) {
         claims: atomicClaims,
       },
     });
-  } catch (error: any) {
+  } catch (error: unknown) {
+    const message = error instanceof Error ? error.message : "Failed to compile claims";
     console.error("Claim compilation error:", error);
     return NextResponse.json(
-      { ok: false, error: error.message || "Failed to compile claims" },
+      { ok: false, error: message },
       { status: 500 }
     );
   }

@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 import { buildEvidenceState, evaluateAssetTrust } from "@/lib/trust";
 import { evaluateClaimWithJev } from "@/lib/jev";
+import { getAdminDb } from "@/lib/db";
+import { localStore } from "@/lib/local-store";
 
 const VerifyClaimSchema = z.object({
   claimId: z.string().min(1),
@@ -24,6 +26,29 @@ const VerifyClaimSchema = z.object({
     })
     .optional(),
 });
+
+export async function GET(req: NextRequest) {
+  try {
+    const url = new URL(req.url);
+    const claimId = url.searchParams.get("claimId");
+
+    let entries = localStore.get<Record<string, unknown>>("ledger_entries");
+    if (claimId) {
+      entries = entries.filter((e) => e.claim_id === claimId);
+    }
+
+    return NextResponse.json({
+      ok: true,
+      data: {
+        totalEntries: entries.length,
+        entries,
+      },
+    });
+  } catch (error: unknown) {
+    const message = error instanceof Error ? error.message : "Failed to retrieve ledger entries";
+    return NextResponse.json({ ok: false, error: message }, { status: 500 });
+  }
+}
 
 export async function POST(req: NextRequest) {
   try {
@@ -77,11 +102,46 @@ export async function POST(req: NextRequest) {
 
     // 4. Log to Decision Ledger (Rules.md §Error handling: Log every verdict's inputs/outputs)
     const ledgerEntries = verdict.answers.map((ans) => ({
-      stateHash: verdict.stateHash,
+      claim_id: claimId,
+      state_hash: verdict.stateHash,
       question: ans.question,
       probability: ans.probability,
-      createdAt: new Date().toISOString(),
+      created_at: new Date().toISOString(),
     }));
+
+    // Persist to local ledger store
+    for (const entry of ledgerEntries) {
+      localStore.insert("ledger_entries", entry);
+    }
+
+    // Persist verdict to local store
+    localStore.upsert(
+      "verdicts",
+      {
+        claim_id: claimId,
+        survival_score: verdict.survivalScore,
+        status: verdict.status,
+        state_hash: verdict.stateHash,
+        answers: verdict.answers,
+        evaluated_at: new Date().toISOString(),
+      },
+      "claim_id"
+    );
+
+    // Attempt remote Supabase persistence (non-blocking fallback)
+    try {
+      const db = getAdminDb();
+      await db.from("ledger_entries").insert(ledgerEntries);
+      await db.from("verdicts").upsert({
+        claim_id: claimId,
+        survival_score: verdict.survivalScore,
+        status: verdict.status,
+        jev_answers: verdict.answers,
+        evaluated_at: new Date().toISOString(),
+      });
+    } catch (dbErr) {
+      console.warn("Supabase ledger sync fallback to localStore:", dbErr);
+    }
 
     return NextResponse.json({
       ok: true,
@@ -91,13 +151,14 @@ export async function POST(req: NextRequest) {
         ledgerEntries,
       },
     });
-  } catch (error: any) {
+  } catch (error: unknown) {
+    const message = error instanceof Error ? error.message : "Claim verification failed";
     console.error("Claim verification error:", error);
     // Fail closed rule: on unexpected error, status should fail closed
     return NextResponse.json(
       {
         ok: false,
-        error: error.message || "Claim verification failed",
+        error: message,
         fallbackStatus: "review",
       },
       { status: 500 }

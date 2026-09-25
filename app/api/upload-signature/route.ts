@@ -32,10 +32,11 @@ export async function POST(req: NextRequest) {
       ok: true,
       data: signatureData,
     });
-  } catch (error: any) {
+  } catch (error: unknown) {
+    const message = error instanceof Error ? error.message : "Failed to generate upload signature";
     console.error("Upload signature error:", error);
     return NextResponse.json(
-      { ok: false, error: error.message || "Failed to generate upload signature" },
+      { ok: false, error: message },
       { status: 500 }
     );
   }

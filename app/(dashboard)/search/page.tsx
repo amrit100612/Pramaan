@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { NavBar } from "@/components/pramaan/NavBar";
 import { Stamp, StampState } from "@/components/pramaan/Stamp";
@@ -18,72 +18,50 @@ interface SearchResult {
   tags: string[];
 }
 
-const INITIAL_RESULTS: SearchResult[] = [
-  {
-    id: "asset_demo_01",
-    title: "Canal Bank Sapling Trench A-04",
-    caption: "Field officers planting Rhizophora mangrove saplings along tidal mudflats during low tide.",
-    project: "Sundarbans Sector 4",
-    capturedAt: "2026-08-12",
-    similarity: 0.94,
-    trustScore: 0.94,
-    status: "verified",
-    thumbnailUrl: "https://images.unsplash.com/photo-1544979590-37e9b47eb705?auto=format&fit=crop&w=600&q=80",
-    tags: ["tidal", "sapling", "mangrove", "monsoon"],
-  },
-  {
-    id: "asset_demo_02",
-    title: "Tidal Sluice Gate Buffer Bed",
-    caption: "Volunteers surveying newly rooted Avicennia seedlings after monsoon high water levels.",
-    project: "Sundarbans Sector 4",
-    capturedAt: "2026-08-14",
-    similarity: 0.88,
-    trustScore: 0.91,
-    status: "verified",
-    thumbnailUrl: "https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?auto=format&fit=crop&w=600&q=80",
-    tags: ["monsoon", "seedling", "flood buffer"],
-  },
-  {
-    id: "asset_demo_03",
-    title: "High Tide Line Seedling Density",
-    caption: "Coastal ridge planting inspected after flash rainfall.",
-    project: "Sundarbans Sector 2",
-    capturedAt: "2026-09-02",
-    similarity: 0.76,
-    trustScore: 0.58,
-    status: "review",
-    thumbnailUrl: "https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=600&q=80",
-    tags: ["high tide", "rain"],
-  },
-];
-
 export default function SemanticSearchPage() {
   const [query, setQuery] = useState("Plantation near a river after monsoon");
-  const [results, setResults] = useState<SearchResult[]>(INITIAL_RESULTS);
+  const [results, setResults] = useState<SearchResult[]>([]);
   const [isSearching, setIsSearching] = useState(false);
+  const [searchMetadata, setSearchMetadata] = useState<{ total: number; durationMs?: number } | null>(null);
+
+  // Initial search on mount
+  useEffect(() => {
+    runSearch("Plantation near a river after monsoon");
+  }, []);
+
+  const runSearch = async (searchTerm: string) => {
+    if (!searchTerm.trim()) return;
+    setIsSearching(true);
+    const start = Date.now();
+
+    try {
+      const res = await fetch("/api/search", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ query: searchTerm, projectId: "proj-1" }),
+      });
+      const json = await res.json();
+      if (json.ok && json.data) {
+        setResults(json.data.results || []);
+        setSearchMetadata({
+          total: json.data.count,
+          durationMs: Date.now() - start,
+        });
+      }
+    } catch (err: unknown) {
+      console.error("Search failed:", err);
+    } finally {
+      setIsSearching(false);
+    }
+  };
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!query.trim()) return;
-
-    setIsSearching(true);
-    setTimeout(() => {
-      // Filter or rank based on query keywords
-      const q = query.toLowerCase();
-      const filtered = INITIAL_RESULTS.filter(
-        (r) =>
-          r.caption.toLowerCase().includes(q) ||
-          r.title.toLowerCase().includes(q) ||
-          r.tags.some((t) => q.includes(t)) ||
-          true
-      );
-      setResults(filtered);
-      setIsSearching(false);
-    }, 400);
+    runSearch(query);
   };
 
   return (
-    <div className="min-h-screen bg-paper text-ink flex flex-col">
+    <div className="min-h-screen bg-paper text-ink flex flex-col font-plex-sans">
       <NavBar currentPath="/search" />
 
       <main className="flex-1 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full">
@@ -111,9 +89,9 @@ export default function SemanticSearchPage() {
             <button
               type="submit"
               disabled={isSearching}
-              className="px-6 py-2.5 bg-moss text-paper font-plex-mono text-xs font-semibold uppercase tracking-wider hover:bg-moss/90 transition-colors disabled:opacity-50 cursor-pointer"
+              className="px-6 py-2.5 bg-moss text-paper font-plex-mono text-xs font-semibold uppercase tracking-wider hover:bg-moss/90 transition-colors disabled:opacity-50 cursor-pointer shadow-2xs"
             >
-              {isSearching ? "Searching..." : "Search Evidence"}
+              {isSearching ? "Embedding..." : "Search Evidence"}
             </button>
           </form>
         </div>
@@ -121,13 +99,24 @@ export default function SemanticSearchPage() {
         {/* Results List */}
         <div className="space-y-4">
           <div className="flex items-center justify-between text-xs font-plex-mono text-slate border-b border-slate/20 pb-2">
-            <span>RESULTS RANKED BY EMBEDDING COSINE SIMILARITY</span>
-            <span>{results.length} matches</span>
+            <span>RESULTS RANKED BY 1536-DIM VECTOR COSINE SIMILARITY</span>
+            <span>
+              {results.length} matches {searchMetadata?.durationMs ? `(${searchMetadata.durationMs}ms)` : ""}
+            </span>
           </div>
+
+          {results.length === 0 && !isSearching && (
+            <div className="p-8 text-center text-sm font-plex-mono text-slate border border-dashed border-slate/30">
+              No matching assets found in the ledger. Try uploading photos or searching for &ldquo;mangrove&rdquo; or &ldquo;sapling&rdquo;.
+            </div>
+          )}
 
           <div className="divide-y border border-slate/30 bg-[#FDFCFA]">
             {results.map((res) => (
-              <div key={res.id} className="p-4 flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between hover:bg-paper-light/50 transition-colors">
+              <div
+                key={res.id}
+                className="p-4 flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between hover:bg-paper-light/50 transition-colors"
+              >
                 <div className="flex items-start gap-4">
                   <img
                     src={res.thumbnailUrl}
@@ -147,7 +136,7 @@ export default function SemanticSearchPage() {
                     <div className="flex flex-wrap items-center gap-3 mt-1.5 text-[11px] font-plex-mono text-slate">
                       <span>PROJECT: {res.project}</span>
                       <span>DATE: {res.capturedAt}</span>
-                      <span className="text-moss font-semibold">
+                      <span className="text-moss font-bold">
                         SIMILARITY: {(res.similarity * 100).toFixed(1)}%
                       </span>
                     </div>
