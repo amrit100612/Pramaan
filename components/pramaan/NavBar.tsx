@@ -8,71 +8,73 @@ interface NavBarProps {
 
 export function NavBar({ currentPath = "/", isMarketing = false }: NavBarProps) {
   return (
-    <header className="w-full border-b border-slate/30 bg-paper/90 backdrop-blur-sm sticky top-0 z-50">
+    <header className="w-full border-b border-[#1F2A24]/15 bg-[#EDE6D6]/95 backdrop-blur-md sticky top-0 z-50 transition-all">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
         {/* Brand */}
-        <Link href="/" className="flex items-center gap-2.5 group">
-          <div className="w-7 h-7 border-2 border-ink flex items-center justify-center font-fraunces font-bold text-ink text-lg -rotate-3 group-hover:rotate-0 transition-transform bg-paper-light">
+        <Link href="/" className="flex items-center gap-3 group">
+          <div className="w-8 h-8 bg-[#1F2A24] text-[#EDE6D6] flex items-center justify-center font-fraunces font-bold text-lg rounded-xs -rotate-2 group-hover:rotate-0 transition-transform shadow-xs">
             P
           </div>
-          <span className="font-fraunces text-2xl font-bold tracking-tight text-ink">
-            Pramaan
-          </span>
-          <span className="text-[10px] font-plex-mono px-1.5 py-0.5 border border-slate/40 text-slate uppercase rounded-sm">
-            EVIDENCE v1.0
-          </span>
+          <div className="flex items-baseline gap-2">
+            <span className="font-fraunces text-2xl font-bold tracking-tight text-[#1F2A24]">
+              Pramaan
+            </span>
+            <span className="text-[10px] font-plex-mono font-medium px-1.5 py-0.5 border border-[#1F2A24]/20 text-[#6B7268] uppercase rounded-xs">
+              EVIDENCE
+            </span>
+          </div>
         </Link>
 
-        {/* Nav Links */}
-        <nav className="flex items-center gap-1 sm:gap-4 text-sm font-plex-sans">
+        {/* Navigation Items */}
+        <nav className="flex items-center gap-2 sm:gap-4 text-xs font-plex-sans">
           {!isMarketing ? (
             <>
               <Link
                 href="/projects/proj-1"
-                className={`px-3 py-1.5 rounded-sm hover:text-moss transition-colors ${
+                className={`px-3 py-1.5 rounded-xs transition-colors ${
                   currentPath.includes("/projects")
-                    ? "font-semibold text-ink border-b-2 border-moss"
-                    : "text-ink/80"
+                    ? "font-semibold text-[#1F2A24] bg-white/70 shadow-2xs"
+                    : "text-[#1F2A24]/80 hover:text-[#1F2A24] hover:bg-black/5"
                 }`}
               >
                 Ledger Gallery
               </Link>
               <Link
                 href="/search"
-                className={`px-3 py-1.5 rounded-sm hover:text-moss transition-colors ${
+                className={`px-3 py-1.5 rounded-xs transition-colors ${
                   currentPath.includes("/search")
-                    ? "font-semibold text-ink border-b-2 border-moss"
-                    : "text-ink/80"
+                    ? "font-semibold text-[#1F2A24] bg-white/70 shadow-2xs"
+                    : "text-[#1F2A24]/80 hover:text-[#1F2A24] hover:bg-black/5"
                 }`}
               >
                 Semantic Search
               </Link>
               <Link
                 href="/before-after/pair-1"
-                className={`px-3 py-1.5 rounded-sm hover:text-moss transition-colors ${
+                className={`px-3 py-1.5 rounded-xs transition-colors ${
                   currentPath.includes("/before-after")
-                    ? "font-semibold text-ink border-b-2 border-moss"
-                    : "text-ink/80"
+                    ? "font-semibold text-[#1F2A24] bg-white/70 shadow-2xs"
+                    : "text-[#1F2A24]/80 hover:text-[#1F2A24] hover:bg-black/5"
                 }`}
               >
                 Before/After Studio
               </Link>
               <Link
                 href="/copilot"
-                className={`px-3 py-1.5 rounded-sm hover:text-moss transition-colors ${
+                className={`px-3 py-1.5 rounded-xs transition-colors ${
                   currentPath.includes("/copilot")
-                    ? "font-semibold text-ink border-b-2 border-moss"
-                    : "text-ink/80"
+                    ? "font-semibold text-[#1F2A24] bg-white/70 shadow-2xs"
+                    : "text-[#1F2A24]/80 hover:text-[#1F2A24] hover:bg-black/5"
                 }`}
               >
                 Cited Copilot
               </Link>
               <Link
                 href="/campaign/claim-1"
-                className={`px-3 py-1.5 rounded-sm hover:text-moss transition-colors ${
+                className={`px-3 py-1.5 rounded-xs transition-colors ${
                   currentPath.includes("/campaign")
-                    ? "font-semibold text-ink border-b-2 border-moss"
-                    : "text-ink/80"
+                    ? "font-semibold text-[#1F2A24] bg-white/70 shadow-2xs"
+                    : "text-[#1F2A24]/80 hover:text-[#1F2A24] hover:bg-black/5"
                 }`}
               >
                 Campaign Studio
@@ -82,19 +84,19 @@ export function NavBar({ currentPath = "/", isMarketing = false }: NavBarProps) 
             <>
               <Link
                 href="/projects/proj-1"
-                className="px-3 py-1.5 text-ink/80 hover:text-moss transition-colors"
+                className="px-3 py-1.5 text-[#1F2A24] font-medium hover:text-[#3F6B4F] transition-colors"
               >
-                App
+                Dashboard
               </Link>
               <Link
                 href="/terms"
-                className="px-3 py-1.5 text-slate hover:text-ink transition-colors"
+                className="px-3 py-1.5 text-[#6B7268] hover:text-[#1F2A24] transition-colors"
               >
                 Terms
               </Link>
               <Link
                 href="/privacy"
-                className="px-3 py-1.5 text-slate hover:text-ink transition-colors"
+                className="px-3 py-1.5 text-[#6B7268] hover:text-[#1F2A24] transition-colors"
               >
                 Privacy
               </Link>
@@ -103,9 +105,9 @@ export function NavBar({ currentPath = "/", isMarketing = false }: NavBarProps) 
 
           <Link
             href="/verify/asset_demo_01"
-            className="ml-2 inline-flex items-center gap-1.5 px-3 py-1 border border-moss text-moss text-xs font-plex-mono font-medium hover:bg-moss hover:text-paper transition-colors"
+            className="ml-2 inline-flex items-center gap-1.5 px-3.5 py-1.5 bg-[#3F6B4F] text-[#EDE6D6] text-xs font-plex-mono font-medium rounded-xs hover:bg-[#3F6B4F]/90 transition-colors shadow-2xs"
           >
-            <span>Public Verify</span>
+            <span>Public Receipt</span>
             <span className="text-[10px]">↗</span>
           </Link>
         </nav>

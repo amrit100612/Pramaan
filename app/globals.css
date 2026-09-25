@@ -1,92 +1,77 @@
-@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap');
+@import "tailwindcss";
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-:root {
-  /* ── Pramaan design tokens ────────────────────────────────────────── */
-  --color-ink:         #1F2A24;
-  --color-paper:       #EDE6D6;
+@theme {
+  --color-ink: #1F2A24;
+  --color-paper: #EDE6D6;
   --color-paper-light: #F6F2EA;
-  --color-moss:        #3F6B4F;
-  --color-ochre:       #C68A2E;
-  --color-oxide:       #9E3B34;
-  --color-slate:       #6B7268;
+  --color-moss: #3F6B4F;
+  --color-ochre: #C68A2E;
+  --color-oxide: #9E3B34;
+  --color-slate: #6B7268;
 
-  /* ── Font vars (for Tailwind font-family utilities) ──────────────── */
-  --font-fraunces:  'Fraunces', Georgia, serif;
-  --font-plex-sans: 'IBM Plex Sans', system-ui, sans-serif;
-  --font-plex-mono: 'IBM Plex Mono', monospace;
-
-  /* ── shadcn/ui radius ────────────────────────────────────────────── */
-  --radius: 0.25rem;
-
-  /* ── shadcn CSS vars mapped to Pramaan tokens ────────────────────── */
-  --background:   var(--color-paper);
-  --foreground:   var(--color-ink);
-  --primary:      var(--color-moss);
-  --primary-foreground: var(--color-paper);
-  --muted:        var(--color-slate);
-  --muted-foreground: var(--color-slate);
-  --border:       var(--color-slate);
-  --ring:         var(--color-moss);
+  --font-fraunces: 'Fraunces', Georgia, serif;
+  --font-plex-sans: 'IBM Plex Sans', system-ui, -apple-system, sans-serif;
+  --font-plex-mono: 'IBM Plex Mono', ui-monospace, monospace;
 }
 
-/* ── Base resets ────────────────────────────────────────────────────── */
-*, *::before, *::after {
-  box-sizing: border-box;
+:root {
+  --color-ink: #1F2A24;
+  --color-paper: #EDE6D6;
+  --color-paper-light: #F6F2EA;
+  --color-moss: #3F6B4F;
+  --color-ochre: #C68A2E;
+  --color-oxide: #9E3B34;
+  --color-slate: #6B7268;
+
+  --background: #EDE6D6;
+  --foreground: #1F2A24;
+  --primary: #3F6B4F;
+  --primary-foreground: #EDE6D6;
+  --muted: #6B7268;
+  --muted-foreground: #6B7268;
+  --border: #6B7268;
+  --ring: #3F6B4F;
+  --radius: 0.25rem;
 }
 
 body {
-  background-color: var(--color-paper);
-  color: var(--color-ink);
-  font-family: var(--font-plex-sans);
-  font-size: 1rem;
-  line-height: 1.6;
+  background-color: #EDE6D6;
+  color: #1F2A24;
+  font-family: 'IBM Plex Sans', system-ui, -apple-system, sans-serif;
+  margin: 0;
+  padding: 0;
   -webkit-font-smoothing: antialiased;
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-fraunces);
+  font-family: 'Fraunces', Georgia, serif;
   font-weight: 600;
-  line-height: 1.2;
-  color: var(--color-ink);
+  color: #1F2A24;
 }
 
 code, pre, .mono {
-  font-family: var(--font-plex-mono);
+  font-family: 'IBM Plex Mono', monospace;
 }
 
-/* ── Stamp animation (Design.md §Principles #3) ─────────────────────
-   One motion moment: stamp animates down once when a claim resolves.
-   Scale + slight rotate, ~200ms. No hover animations on every card. */
+/* Stamp Animation */
 @keyframes stamp-in {
-  0%   { opacity: 0; transform: rotate(-8deg) scale(1.4); }
-  60%  { transform: rotate(-6deg) scale(0.95); }
-  100% { opacity: 1; transform: rotate(-6deg) scale(1); }
+  0% {
+    opacity: 0;
+    transform: rotate(-10deg) scale(1.35);
+  }
+  60% {
+    transform: rotate(-5deg) scale(0.96);
+  }
+  100% {
+    opacity: 1;
+    transform: rotate(-5deg) scale(1);
+  }
 }
 
 .stamp-animate {
-  animation: stamp-in 200ms ease-out forwards;
+  animation: stamp-in 220ms ease-out forwards;
 }
 
-/* ── Perforated / torn top edge for Claim Cards ─────────────────────
-   Achieved via clip-path; the SVG torn-edge version is in the
-   ClaimCard component. */
-.claim-card-perforated {
-  position: relative;
-}
-
-/* ── Ledger table lines (Design.md §Layout) ──────────────────────── */
-.ledger-row {
-  border-bottom: 1px solid var(--color-slate);
-  padding: 0.5rem 0;
-  font-family: var(--font-plex-sans);
-  font-size: 0.875rem;
-}
-
-/* ── Reduced motion ──────────────────────────────────────────────── */
 @media (prefers-reduced-motion: reduce) {
   .stamp-animate {
     animation: none;

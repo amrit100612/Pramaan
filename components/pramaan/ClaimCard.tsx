@@ -31,101 +31,115 @@ export function ClaimCard({
   onVerifyClick,
 }: ClaimCardProps) {
   return (
-    <div className="relative bg-[#FDFCFA] border border-slate/40 text-ink shadow-sm max-w-md w-full overflow-hidden">
-      {/* Perforated / torn top edge decoration */}
-      <div className="w-full h-2.5 bg-paper flex items-center overflow-hidden border-b border-dashed border-slate/50">
-        <svg
-          className="w-full h-2.5 text-paper fill-current"
-          viewBox="0 0 400 10"
-          preserveAspectRatio="none"
-        >
-          <path d="M0,0 L10,10 L20,0 L30,10 L40,0 L50,10 L60,0 L70,10 L80,0 L90,10 L100,0 L110,10 L120,0 L130,10 L140,0 L150,10 L160,0 L170,10 L180,0 L190,10 L200,0 L210,10 L220,0 L230,10 L240,0 L250,10 L260,0 L270,10 L280,0 L290,10 L300,0 L310,10 L320,0 L330,10 L340,0 L350,10 L360,0 L370,10 L380,0 L390,10 L400,0 Z" />
-        </svg>
+    <div className="relative bg-[#FAF7F0] border-2 border-[#1F2A24]/70 text-[#1F2A24] shadow-md max-w-md w-full rounded-sm overflow-hidden font-plex-sans">
+      {/* Perforated Top Header Strip with Ticket Notches */}
+      <div className="relative bg-[#EDE6D6] px-4 py-2 border-b-2 border-dashed border-[#1F2A24]/40 flex items-center justify-between">
+        {/* Left notch cutout */}
+        <div className="absolute -left-2.5 -bottom-2.5 w-5 h-5 bg-[#F6F2EA] rounded-full border border-[#1F2A24]/50" />
+        {/* Right notch cutout */}
+        <div className="absolute -right-2.5 -bottom-2.5 w-5 h-5 bg-[#F6F2EA] rounded-full border border-[#1F2A24]/50" />
+
+        <span className="text-[10px] font-plex-mono font-bold tracking-widest text-[#6B7268] uppercase">
+          EVIDENCE VOUCHER
+        </span>
+        <span className="text-[10px] font-plex-mono text-[#1F2A24] font-semibold bg-white/70 px-1.5 py-0.5 border border-[#1F2A24]/20">
+          #{stateHash.slice(0, 8).toUpperCase()}
+        </span>
       </div>
 
-      <div className="p-5">
-        {/* Header / Voucher ID */}
-        <div className="flex items-start justify-between gap-2 mb-2">
-          <div>
-            <span className="text-[11px] font-plex-mono text-slate uppercase tracking-wider block">
-              EVIDENCE VOUCHER #{stateHash.slice(0, 6)}
-            </span>
-            <h3 className="text-lg font-fraunces font-semibold text-ink leading-tight mt-0.5">
+      <div className="p-5 space-y-4">
+        {/* Title & Ink Stamp */}
+        <div className="flex items-start justify-between gap-3">
+          <div className="space-y-0.5 flex-1">
+            <h3 className="text-xl font-fraunces font-bold text-[#1F2A24] leading-snug">
               {title}
             </h3>
+            <p className="text-xs font-plex-mono text-[#6B7268]">
+              Sundarbans Sector 4 · Tidal Mangrove Belt
+            </p>
           </div>
-          <div className="shrink-0 mt-1">
+          <div className="shrink-0 pt-0.5">
             <Stamp state={status} size="sm" animate={status !== "processing"} />
           </div>
         </div>
 
-        {/* Claim Text */}
-        <p className="text-sm font-plex-sans text-ink/80 italic mb-4 border-l-2 border-slate/30 pl-2.5 py-0.5">
-          &ldquo;{claimText}&rdquo;
-        </p>
-
-        {/* Divider */}
-        <div className="h-px bg-slate/20 w-full mb-3" />
-
-        {/* Atomic checks list */}
-        <div className="space-y-1.5 font-plex-mono text-xs mb-4">
-          {answers.length > 0 ? (
-            answers.map((ans, i) => (
-              <div key={i} className="flex items-center justify-between py-0.5">
-                <span className="text-slate flex items-center gap-1.5">
-                  {ans.probability >= 0.5 && !ans.isContradiction ? (
-                    <span className="text-moss">✓</span>
-                  ) : ans.isContradiction && ans.probability >= 0.5 ? (
-                    <span className="text-oxide">✗</span>
-                  ) : (
-                    <span className="text-ochre">?</span>
-                  )}
-                  {ans.label}
-                </span>
-                <span className="font-semibold text-ink">
-                  {(ans.probability).toFixed(2)}
-                </span>
-              </div>
-            ))
-          ) : (
-            <>
-              <div className="flex items-center justify-between text-slate">
-                <span>activity shown</span>
-                <span className="text-moss font-semibold">✓ 0.94</span>
-              </div>
-              <div className="flex items-center justify-between text-slate">
-                <span>wrong environment</span>
-                <span className="text-slate font-semibold">✗ 0.03</span>
-              </div>
-              <div className="flex items-center justify-between text-slate">
-                <span>scale contradicts</span>
-                <span className="text-slate font-semibold">✗ 0.06</span>
-              </div>
-            </>
-          )}
+        {/* Claim Blockquote */}
+        <div className="bg-white/80 p-3 border-l-4 border-[#3F6B4F] shadow-2xs">
+          <p className="text-sm font-plex-sans text-[#1F2A24] italic leading-relaxed">
+            &ldquo;{claimText}&rdquo;
+          </p>
         </div>
 
-        {/* Big stamp area when verified/rejected */}
-        <div className="flex items-center justify-between pt-2 border-t border-slate/20">
-          <div className="text-xs font-plex-sans text-slate">
-            Cited: <span className="font-plex-mono text-ink font-medium">{citedAssetCount} asset{citedAssetCount > 1 ? "s" : ""}</span>
-            <span className="mx-1.5">·</span>
-            Survival: <span className="font-plex-mono font-semibold text-ink">{Math.round(survivalScore * 100)}%</span>
+        {/* Atomic Checks Breakdown (Jev Jury) */}
+        <div className="space-y-2 pt-1">
+          <div className="flex items-center justify-between text-[11px] font-plex-mono text-[#6B7268] border-b border-[#1F2A24]/15 pb-1">
+            <span className="font-semibold uppercase">Jev Jury Evaluation Criteria</span>
+            <span>Prob.</span>
           </div>
 
-          {onVerifyClick && (
-            <button
-              onClick={onVerifyClick}
-              className="text-xs font-plex-mono font-medium text-moss hover:underline cursor-pointer"
-            >
-              Examine ledger →
-            </button>
-          )}
+          <div className="space-y-1.5 font-plex-mono text-xs">
+            {answers.length > 0 ? (
+              answers.map((ans, i) => (
+                <div key={i} className="flex items-center justify-between py-0.5">
+                  <span className="text-[#1F2A24]/80 flex items-center gap-1.5">
+                    {ans.probability >= 0.5 && !ans.isContradiction ? (
+                      <span className="text-[#3F6B4F] font-bold">✓</span>
+                    ) : ans.isContradiction && ans.probability >= 0.5 ? (
+                      <span className="text-[#9E3B34] font-bold">✗</span>
+                    ) : (
+                      <span className="text-[#C68A2E] font-bold">?</span>
+                    )}
+                    <span>{ans.label}</span>
+                  </span>
+                  <span className="font-semibold text-[#1F2A24]">
+                    {(ans.probability).toFixed(2)}
+                  </span>
+                </div>
+              ))
+            ) : (
+              <>
+                <div className="flex items-center justify-between text-xs">
+                  <span className="flex items-center gap-1.5 text-[#1F2A24]/80">
+                    <span className="text-[#3F6B4F] font-bold">✓</span>
+                    <span>activity corroborated</span>
+                  </span>
+                  <span className="text-[#3F6B4F] font-semibold">0.94</span>
+                </div>
+                <div className="flex items-center justify-between text-xs">
+                  <span className="flex items-center gap-1.5 text-[#1F2A24]/80">
+                    <span className="text-[#3F6B4F] font-bold">✓</span>
+                    <span>environment consistent</span>
+                  </span>
+                  <span className="text-[#3F6B4F] font-semibold">0.91</span>
+                </div>
+                <div className="flex items-center justify-between text-xs">
+                  <span className="flex items-center gap-1.5 text-[#1F2A24]/80">
+                    <span className="text-[#6B7268] font-bold">✗</span>
+                    <span>scale contradicts claim</span>
+                  </span>
+                  <span className="text-[#6B7268] font-semibold">0.06</span>
+                </div>
+              </>
+            )}
+          </div>
         </div>
 
-        {/* Mono footer: state hash + time */}
-        <div className="mt-4 pt-2.5 border-t border-dashed border-slate/30 flex items-center justify-between text-[11px] font-plex-mono text-slate">
-          <span>{stateHash}</span>
+        {/* Survival Score Metric */}
+        <div className="bg-[#EDE6D6]/70 p-2.5 border border-[#1F2A24]/15 flex items-center justify-between">
+          <div className="text-xs font-plex-sans text-[#1F2A24]/80">
+            Cited Evidence: <span className="font-plex-mono font-bold text-[#1F2A24]">{citedAssetCount} Asset{citedAssetCount > 1 ? "s" : ""}</span>
+          </div>
+          <div className="flex items-center gap-1.5 text-xs font-plex-mono font-bold">
+            <span className="text-[#6B7268]">SURVIVAL:</span>
+            <span className="text-[#3F6B4F] text-sm">
+              {Math.round(survivalScore * 100)}%
+            </span>
+          </div>
+        </div>
+
+        {/* Footer Hash & Verification Timestamp */}
+        <div className="pt-2 border-t border-dashed border-[#1F2A24]/30 flex items-center justify-between text-[10px] font-plex-mono text-[#6B7268]">
+          <span>HASH: {stateHash}</span>
           <span>{timestamp}</span>
         </div>
       </div>

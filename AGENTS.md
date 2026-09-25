@@ -601,3 +601,13 @@ Each phase should be independently demoable — if time runs out, stopping after
 
 ## 7. Memory (added once coding starts)
 `Memory.md` doesn't exist at the start of the project. Create it the first time a phase checkpoint is reached, and keep it updated after every session: what's built, what's currently broken, what the next task is, and any decision made that isn't already captured above. This is what lets a new chat session pick up mid-build without re-reading the whole codebase.
+
+<!-- BEGIN:nextjs-agent-rules -->
+
+# This is NOT the Next.js you know
+
+This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` (resolved from this file's directory; in monorepos the `next` package may not be visible from the repo root) before writing any code. Heed deprecation notices.
+
+This block is written and re-added by `next dev` — verify at `node_modules/next/dist/server/lib/generate-agent-files.js`. Removing it from a diff only re-creates the uncommitted change; committing it with your work keeps the tree clean.
+
+<!-- END:nextjs-agent-rules -->

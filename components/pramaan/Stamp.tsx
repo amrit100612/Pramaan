@@ -13,41 +13,47 @@ export function Stamp({ state, size = "md", animate = false, className = "" }: S
   const configs = {
     verified: {
       label: "VERIFIED",
-      colorClass: "border-moss text-moss",
-      hex: "#3F6B4F",
+      textColor: "text-[#3F6B4F]",
+      borderColor: "border-[#3F6B4F]",
+      bgColor: "bg-[#3F6B4F]/10",
     },
     review: {
       label: "REVIEW",
-      colorClass: "border-ochre text-ochre",
-      hex: "#C68A2E",
+      textColor: "text-[#C68A2E]",
+      borderColor: "border-[#C68A2E]",
+      bgColor: "bg-[#C68A2E]/10",
     },
     contradicted: {
       label: "CONTRADICTED",
-      colorClass: "border-oxide text-oxide",
-      hex: "#9E3B34",
+      textColor: "text-[#9E3B34]",
+      borderColor: "border-[#9E3B34]",
+      bgColor: "bg-[#9E3B34]/10",
     },
     processing: {
       label: "PROCESSING",
-      colorClass: "border-slate text-slate",
-      hex: "#6B7268",
+      textColor: "text-[#6B7268]",
+      borderColor: "border-[#6B7268]",
+      bgColor: "bg-[#6B7268]/10",
     },
   };
 
-  const { label, colorClass } = configs[state] || configs.processing;
+  const { label, textColor, borderColor, bgColor } = configs[state] || configs.processing;
 
-  const sizeClasses = {
-    sm: "px-2 py-0.5 text-xs tracking-wider border",
-    md: "px-3.5 py-1 text-sm tracking-widest border-2",
-    lg: "px-5 py-2 text-base tracking-widest border-[3px]",
+  const sizeStyles = {
+    sm: "px-2 py-0.5 text-[11px] tracking-wider border",
+    md: "px-3.5 py-1 text-xs tracking-widest border-2",
+    lg: "px-5 py-1.5 text-sm tracking-widest border-[3px]",
   };
 
   return (
     <div
-      className={`inline-flex items-center justify-center font-plex-mono font-bold uppercase select-none transition-transform ${
-        sizeClasses[size]
-      } ${colorClass} ${animate ? "stamp-animate" : "-rotate-3"} ${className}`}
+      className={`inline-flex items-center justify-center font-plex-mono font-bold uppercase select-none ${
+        sizeStyles[size]
+      } ${textColor} ${borderColor} ${bgColor} ${
+        animate ? "stamp-animate" : "-rotate-3"
+      } ${className}`}
       style={{
-        boxShadow: "inset 0 0 0 1px currentColor, 0 0 0 1px currentColor",
+        boxShadow: "inset 0 0 0 1px currentColor",
         borderRadius: "2px",
       }}
       aria-label={`Verification stamp: ${label}`}

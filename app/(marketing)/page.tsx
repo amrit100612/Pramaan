@@ -6,167 +6,204 @@ import { Stamp } from "@/components/pramaan/Stamp";
 
 export default function MarketingPage() {
   return (
-    <div className="min-h-screen bg-paper-light text-ink flex flex-col">
+    <div className="min-h-screen bg-[#F6F2EA] text-[#1F2A24] flex flex-col font-plex-sans selection:bg-[#3F6B4F] selection:text-[#EDE6D6]">
       <NavBar isMarketing={true} currentPath="/" />
 
-      <main className="flex-1 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-20 w-full">
+      <main className="flex-1 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-20 w-full space-y-24">
         {/* HERO SECTION */}
-        <section className="mb-20">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
-            <div className="lg:col-span-7 space-y-6">
-              <div className="inline-flex items-center gap-2 px-2.5 py-1 border border-slate/40 text-slate text-xs font-plex-mono uppercase tracking-wider">
-                Problem Statement 02 · Geek Room × Cloudinary
-              </div>
-
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-fraunces font-bold text-ink tracking-tight leading-[1.1]">
-                Turns field media into cited proof of impact.
-              </h1>
-
-              <p className="text-lg sm:text-xl font-plex-sans text-ink/80 leading-relaxed max-w-xl">
-                Pramaan automatically ingests raw photos and videos from NGO, government, and community sites. Every claim in a report is cross-examined against verifiable evidence before publication.
-              </p>
-
-              <div className="flex flex-wrap items-center gap-4 pt-2">
-                <Link
-                  href="/projects/proj-1"
-                  className="px-6 py-3 bg-moss text-paper font-plex-sans font-medium text-sm hover:bg-moss/90 transition-colors shadow-sm"
-                >
-                  Explore Field Ledger
-                </Link>
-                <Link
-                  href="/verify/asset_demo_01"
-                  className="px-6 py-3 border border-ink text-ink font-plex-sans font-medium text-sm hover:bg-paper transition-colors flex items-center gap-2"
-                >
-                  <span>Verify Sample Asset</span>
-                  <svg className="w-4 h-4 stroke-current fill-none stroke-2" viewBox="0 0 24 24">
-                    <path d="M7 17L17 7M17 7H7M17 7V17" />
-                  </svg>
-                </Link>
-              </div>
-
-              <div className="pt-4 text-xs font-plex-mono text-slate">
-                Simulated example based on Sundarbans Mangrove Restoration dataset.
-              </div>
+        <section className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+          <div className="lg:col-span-7 space-y-6">
+            <div className="inline-flex items-center gap-2 px-3 py-1 bg-white/80 border border-[#1F2A24]/15 rounded-xs text-xs font-plex-mono text-[#6B7268] uppercase tracking-wider shadow-2xs">
+              <span className="w-2 h-2 rounded-full bg-[#3F6B4F] animate-pulse" />
+              <span>Geek Room × Cloudinary · Problem Statement 02</span>
             </div>
 
-            {/* Dominant Visual: Real Claim Card */}
-            <div className="lg:col-span-5 flex justify-center lg:justify-end">
-              <ClaimCard
-                title="Sundarbans Zone C Reforestation"
-                claimText="4,500 red mangrove saplings successfully planted along the tidal canal buffer."
-                status="verified"
-                survivalScore={0.92}
-                answers={[
-                  { label: "mangrove sapling activity corroborated", probability: 0.94 },
-                  { label: "tidal wetland environment consistent", probability: 0.91 },
-                  { label: "scale contradicts reported count", probability: 0.06, isContradiction: true },
-                ]}
-                stateHash="e4d9f1a8c207b36e"
-                timestamp="2026-09-25 11:42 UTC"
-                citedAssetCount={3}
-              />
-            </div>
-          </div>
-        </section>
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-fraunces font-bold text-[#1F2A24] tracking-tight leading-[1.12]">
+              Turns raw field media into cited proof of impact.
+            </h1>
 
-        {/* PROBLEM SECTION */}
-        <section className="mb-24 py-10 border-t border-b border-slate/30">
-          <div className="max-w-3xl">
-            <span className="text-xs font-plex-mono text-slate uppercase tracking-wider block mb-2">
-              The Problem
-            </span>
-            <p className="text-xl sm:text-2xl font-fraunces text-ink leading-snug">
-              Field teams capture thousands of unorganized photos and videos. Donors and auditors increasingly question whether claims reflect real work or recycled media. Manual checking does not scale, leaving impact reports vulnerable to doubt.
+            <p className="text-lg sm:text-xl font-plex-sans text-[#1F2A24]/80 leading-relaxed max-w-xl">
+              Pramaan automatically ingests, verifies, and audits photos and videos from NGO and sustainability projects. Every impact claim is cross-examined against perceptual evidence before publication.
             </p>
-          </div>
-        </section>
 
-        {/* HOW IT WORKS (Three varied treatments: Perceive, Verify, Publish) */}
-        <section className="mb-24 space-y-16">
-          <div>
-            <span className="text-xs font-plex-mono text-slate uppercase tracking-wider block mb-2">
-              How Pramaan Works
-            </span>
-            <h2 className="text-3xl font-fraunces font-bold text-ink">
-              From raw field capture to verified public receipt.
-            </h2>
-          </div>
-
-          {/* 1. Perceive */}
-          <div className="p-6 bg-paper border border-slate/30 space-y-4">
-            <div className="flex items-center justify-between">
-              <span className="text-xs font-plex-mono font-bold text-moss uppercase tracking-widest">
-                01 · Perceive
-              </span>
-              <span className="text-xs font-plex-mono text-slate">Auto-tagging + EXIF audit</span>
-            </div>
-            <p className="text-base font-plex-sans text-ink/80 max-w-2xl">
-              Cloudinary AI Vision tags species, equipment, and terrain directly from signed field uploads. Cryptographic perceptual hashing (pHash) flags media reused across projects.
-            </p>
-            <div className="p-3 bg-paper-light border border-slate/20 font-plex-mono text-xs text-slate space-y-1">
-              <div>GPS: 21.9497° N, 88.8998° E (Geofence OK)</div>
-              <div>Detected: Rhizophora mangle, tidal mudflat, sapling trench, hand spade</div>
-              <div>pHash: a7f89c02e1b439f0 · Duplicate check: Negative</div>
-            </div>
-          </div>
-
-          {/* 2. Verify */}
-          <div className="p-6 bg-paper border border-slate/30 space-y-4">
-            <div className="flex items-center justify-between">
-              <span className="text-xs font-plex-mono font-bold text-moss uppercase tracking-widest">
-                02 · Verify
-              </span>
-              <span className="text-xs font-plex-mono text-slate">Jev Jury + Decision Ledger</span>
-            </div>
-            <p className="text-base font-plex-sans text-ink/80 max-w-2xl">
-              Draft narratives are broken into atomic claims. Jev evaluates questions in parallel, outputting calibrated probabilities. Every calculation is permanently logged to an append-only ledger.
-            </p>
-            <div className="p-3 bg-paper-light border border-slate/20 font-plex-mono text-xs space-y-1 text-slate">
-              <div className="text-ink font-semibold">DECISION LEDGER ENTRY #7092</div>
-              <div>State Hash: e4d9f1a8c207b36e</div>
-              <div>Question: Does visible scale contradict claimed numbers?</div>
-              <div>Probability: 0.06 · Survival Threshold: Passed (0.92)</div>
-            </div>
-          </div>
-
-          {/* 3. Publish */}
-          <div className="p-6 bg-paper border border-slate/30 space-y-4">
-            <div className="flex items-center justify-between">
-              <span className="text-xs font-plex-mono font-bold text-moss uppercase tracking-widest">
-                03 · Publish
-              </span>
-              <span className="text-xs font-plex-mono text-slate">Evidence Receipts & QR Verification</span>
-            </div>
-            <p className="text-base font-plex-sans text-ink/80 max-w-2xl">
-              Generate PDF reports mapped to UN Sustainable Development Goals (SDG 13, SDG 15). Every printed claim carries a QR code pointing directly to the tamper-evident digital receipt.
-            </p>
-            <div className="inline-flex items-center gap-3 pt-2">
-              <Stamp state="verified" size="sm" />
-              <span className="text-xs font-plex-mono text-slate">
-                Publicly verifiable without login or account requirement.
-              </span>
-            </div>
-          </div>
-        </section>
-
-        {/* LIVE DEMO CALLOUT */}
-        <section className="mb-20 p-8 bg-paper border-2 border-slate/40 text-ink">
-          <div className="max-w-2xl space-y-4">
-            <span className="text-xs font-plex-mono text-moss uppercase tracking-wider block">
-              Interactive Prototype
-            </span>
-            <h2 className="text-2xl sm:text-3xl font-fraunces font-bold">
-              Test claim verification directly.
-            </h2>
-            <p className="text-sm font-plex-sans text-ink/80">
-              Open the field ledger to run before/after change scoring, search media using natural language, or query the Cited Copilot.
-            </p>
-            <div className="pt-2">
+            <div className="flex flex-wrap items-center gap-4 pt-2">
               <Link
                 href="/projects/proj-1"
-                className="inline-block px-5 py-2.5 bg-ink text-paper font-plex-sans text-sm font-medium hover:bg-ink/90 transition-colors"
+                className="px-6 py-3.5 bg-[#1F2A24] text-[#EDE6D6] font-plex-sans font-semibold text-sm rounded-xs hover:bg-[#1F2A24]/90 transition-all shadow-sm hover:shadow"
               >
-                Launch Field Ledger Console →
+                Launch Field Ledger →
+              </Link>
+              <Link
+                href="/verify/asset_demo_01"
+                className="px-6 py-3.5 bg-white border border-[#1F2A24]/20 text-[#1F2A24] font-plex-sans font-semibold text-sm rounded-xs hover:bg-black/5 transition-all flex items-center gap-2 shadow-2xs"
+              >
+                <span>Audit Sample Receipt</span>
+                <span className="text-xs">↗</span>
+              </Link>
+            </div>
+
+            <div className="flex items-center gap-3 pt-3 text-xs font-plex-mono text-[#6B7268]">
+              <span className="font-semibold text-[#1F2A24]">Demo Dataset:</span>
+              <span>Sundarbans Tidal Mangrove Belt (4,500 Saplings)</span>
+            </div>
+          </div>
+
+          {/* Interactive Evidence Voucher Card */}
+          <div className="lg:col-span-5 flex justify-center lg:justify-end">
+            <ClaimCard
+              title="Sundarbans Zone C Reforestation"
+              claimText="4,500 red mangrove saplings successfully planted along the tidal canal buffer."
+              status="verified"
+              survivalScore={0.92}
+              answers={[
+                { label: "mangrove sapling activity corroborated", probability: 0.94 },
+                { label: "tidal wetland environment consistent", probability: 0.91 },
+                { label: "scale contradicts reported count", probability: 0.06, isContradiction: true },
+              ]}
+              stateHash="e4d9f1a8c207b36e"
+              timestamp="2026-09-25 11:42 UTC"
+              citedAssetCount={3}
+            />
+          </div>
+        </section>
+
+        {/* PROBLEM BANNER */}
+        <section className="bg-white/60 border border-[#1F2A24]/15 p-8 rounded-xs shadow-2xs">
+          <div className="max-w-3xl space-y-3">
+            <span className="text-xs font-plex-mono text-[#3F6B4F] font-bold uppercase tracking-wider block">
+              The Accountability Dilemma
+            </span>
+            <h2 className="text-2xl sm:text-3xl font-fraunces font-bold text-[#1F2A24] leading-snug">
+              Donors and auditors can no longer afford to simply &ldquo;trust the caption.&rdquo;
+            </h2>
+            <p className="text-base font-plex-sans text-[#1F2A24]/80 leading-relaxed">
+              Field teams capture thousands of unorganized photos. Without automated perceptual verification, claims of trees planted or communities assisted remain vulnerable to accidental reuse, misrepresentation, or greenwashing accusations.
+            </p>
+          </div>
+        </section>
+
+        {/* 3-STEP PIPELINE: PERCEIVE, VERIFY, PUBLISH */}
+        <section className="space-y-8">
+          <div>
+            <span className="text-xs font-plex-mono text-[#6B7268] uppercase tracking-wider block mb-1">
+              End-to-End Pipeline
+            </span>
+            <h2 className="text-3xl font-fraunces font-bold text-[#1F2A24]">
+              How Pramaan Verifies Impact
+            </h2>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {/* Step 1: Perceive */}
+            <div className="bg-white/80 border border-[#1F2A24]/15 p-6 rounded-xs space-y-4 shadow-2xs flex flex-col justify-between">
+              <div className="space-y-3">
+                <div className="flex items-center justify-between border-b border-[#1F2A24]/10 pb-2">
+                  <span className="font-plex-mono text-xs font-bold text-[#3F6B4F] uppercase tracking-widest">
+                    01 · Perceive
+                  </span>
+                  <span className="text-[11px] font-plex-mono text-[#6B7268]">Cloudinary AI</span>
+                </div>
+                <h3 className="font-fraunces font-bold text-xl text-[#1F2A24]">
+                  Smart Field Ingestion
+                </h3>
+                <p className="text-xs font-plex-sans text-[#1F2A24]/80 leading-relaxed">
+                  Automated tagging of species, soil type, and equipment. Extracts EXIF timestamps, GPS coordinates, and computes cryptographic perceptual hashes (pHash) to detect duplicate photos.
+                </p>
+              </div>
+
+              <div className="bg-[#EDE6D6]/70 p-3 rounded-xs font-plex-mono text-[11px] text-[#6B7268] space-y-1 border border-[#1F2A24]/10">
+                <div>GPS: 21.9497° N, 88.8998° E</div>
+                <div>Geofence: PASSED (±12m drift)</div>
+                <div>pHash collision: NEGATIVE</div>
+              </div>
+            </div>
+
+            {/* Step 2: Verify */}
+            <div className="bg-white/80 border border-[#1F2A24]/15 p-6 rounded-xs space-y-4 shadow-2xs flex flex-col justify-between">
+              <div className="space-y-3">
+                <div className="flex items-center justify-between border-b border-[#1F2A24]/10 pb-2">
+                  <span className="font-plex-mono text-xs font-bold text-[#3F6B4F] uppercase tracking-widest">
+                    02 · Verify
+                  </span>
+                  <span className="text-[11px] font-plex-mono text-[#6B7268]">Jev Jury</span>
+                </div>
+                <h3 className="font-fraunces font-bold text-xl text-[#1F2A24]">
+                  Probabilistic Evaluation
+                </h3>
+                <p className="text-xs font-plex-sans text-[#1F2A24]/80 leading-relaxed">
+                  Narrative claims are parsed into atomic assertions. Jev evaluates corroboration probabilities in parallel. Results are permanently written to an immutable Decision Ledger.
+                </p>
+              </div>
+
+              <div className="bg-[#EDE6D6]/70 p-3 rounded-xs font-plex-mono text-[11px] text-[#6B7268] space-y-1 border border-[#1F2A24]/10">
+                <div className="text-[#1F2A24] font-semibold">LEDGER ENTRY #7092</div>
+                <div>Corroboration: 0.94 probability</div>
+                <div>Survival Threshold: PASSED (92%)</div>
+              </div>
+            </div>
+
+            {/* Step 3: Publish */}
+            <div className="bg-white/80 border border-[#1F2A24]/15 p-6 rounded-xs space-y-4 shadow-2xs flex flex-col justify-between">
+              <div className="space-y-3">
+                <div className="flex items-center justify-between border-b border-[#1F2A24]/10 pb-2">
+                  <span className="font-plex-mono text-xs font-bold text-[#3F6B4F] uppercase tracking-widest">
+                    03 · Publish
+                  </span>
+                  <span className="text-[11px] font-plex-mono text-[#6B7268]">Public Receipts</span>
+                </div>
+                <h3 className="font-fraunces font-bold text-xl text-[#1F2A24]">
+                  Defensible Reports & QR
+                </h3>
+                <p className="text-xs font-plex-sans text-[#1F2A24]/80 leading-relaxed">
+                  Every published claim and social campaign asset carries an indelible QR code linking to an immutable digital audit receipt. Anyone can independently verify authenticity without an account.
+                </p>
+              </div>
+
+              <div className="bg-[#EDE6D6]/70 p-3 rounded-xs font-plex-mono text-[11px] text-[#6B7268] space-y-1 border border-[#1F2A24]/10 flex items-center justify-between">
+                <span>Receipt: /verify/asset_demo_01</span>
+                <Stamp state="verified" size="sm" />
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* QUICK NAVIGATION / CONSOLE DISCOVERY */}
+        <section className="bg-[#1F2A24] text-[#EDE6D6] p-8 sm:p-10 rounded-xs shadow-md">
+          <div className="max-w-3xl space-y-5">
+            <span className="text-xs font-plex-mono text-[#3F6B4F] uppercase tracking-widest block font-bold">
+              Interactive Tools
+            </span>
+            <h2 className="text-3xl sm:text-4xl font-fraunces font-bold leading-tight">
+              Explore the live verification console.
+            </h2>
+            <p className="text-sm font-plex-sans text-[#EDE6D6]/80 leading-relaxed">
+              Browse the field contact sheet, search evidence using natural language, inspect vegetative change using the ExG slider, or query the Cited Copilot.
+            </p>
+
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-2">
+              <Link
+                href="/projects/proj-1"
+                className="p-3 bg-white/10 hover:bg-white/20 border border-white/15 text-center text-xs font-plex-mono rounded-xs transition-colors"
+              >
+                📁 Ledger Gallery
+              </Link>
+              <Link
+                href="/search"
+                className="p-3 bg-white/10 hover:bg-white/20 border border-white/15 text-center text-xs font-plex-mono rounded-xs transition-colors"
+              >
+                🔍 Semantic Search
+              </Link>
+              <Link
+                href="/before-after/pair-1"
+                className="p-3 bg-white/10 hover:bg-white/20 border border-white/15 text-center text-xs font-plex-mono rounded-xs transition-colors"
+              >
+                ↔ Before/After Studio
+              </Link>
+              <Link
+                href="/copilot"
+                className="p-3 bg-white/10 hover:bg-white/20 border border-white/15 text-center text-xs font-plex-mono rounded-xs transition-colors"
+              >
+                💬 Cited Copilot
               </Link>
             </div>
           </div>
@@ -174,16 +211,16 @@ export default function MarketingPage() {
       </main>
 
       {/* FOOTER */}
-      <footer className="border-t border-slate/30 bg-paper py-8 text-xs font-plex-mono text-slate">
+      <footer className="border-t border-[#1F2A24]/15 bg-[#EDE6D6] py-8 text-xs font-plex-mono text-[#6B7268]">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
           <div>
-            Pramaan · Geek Room × Cloudinary Hackathon · Online round 3 Oct 2026 · Offline round 11 Oct 2026
+            Pramaan · Geek Room × Cloudinary Hackathon · Problem Statement 02
           </div>
           <div className="flex items-center gap-4">
-            <Link href="/terms" className="hover:text-ink transition-colors">
+            <Link href="/terms" className="hover:text-[#1F2A24] transition-colors">
               Terms (Draft)
             </Link>
-            <Link href="/privacy" className="hover:text-ink transition-colors">
+            <Link href="/privacy" className="hover:text-[#1F2A24] transition-colors">
               Privacy (Draft)
             </Link>
           </div>

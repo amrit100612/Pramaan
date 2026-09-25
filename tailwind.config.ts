@@ -1,7 +1,7 @@
 import type { Config } from "tailwindcss";
 
 const config: Config = {
-  darkMode: "class",
+  darkMode: ["class"],
   content: [
     "./pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
@@ -21,11 +21,10 @@ const config: Config = {
       },
       // ── Typography (Design.md §Type) ──────────────────────────────────
       fontFamily: {
-        fraunces: ["var(--font-fraunces)", "Georgia", "serif"],
-        "plex-sans": ["var(--font-plex-sans)", "system-ui", "sans-serif"],
-        "plex-mono": ["var(--font-plex-mono)", "monospace"],
+        fraunces: ["'Fraunces'", "Georgia", "serif"],
+        "plex-sans": ["'IBM Plex Sans'", "system-ui", "sans-serif"],
+        "plex-mono": ["'IBM Plex Mono'", "monospace"],
       },
-      // ── Border radius ─────────────────────────────────────────────────
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
